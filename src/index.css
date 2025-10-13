@@ -1,0 +1,531 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+/* fallback to Inter if Poppins is unavailable */
+@import "tailwindcss";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+  }
+}
+
+html, body, #root {
+  background: #000; /* ensure full black background sitewide */
+  color: #fff;
+}
+
+/* Enhanced theme system with eye-friendly colors */
+:root {
+  /* Dark theme (default) */
+  --bg-gradient-start: #000000;
+  --bg-gradient-end: #000000;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --accent-cyan: #00f0ff;
+  --accent-purple: #c084fc;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --card-hover: rgba(255, 255, 255, 0.08);
+  --heading-gradient: linear-gradient(135deg, #ff6ad5, #8b64c1, #5fcbff);
+  --text-gradient: linear-gradient(135deg, #ffffff, #e0e7ff);
+}
+
+/* Light theme variables - soft, eye-friendly colors */
+:root[class~="light"] {
+  /* Softer light theme for reduced glare */
+  --bg-gradient-start: #fbfbfc; /* very light gray */
+  --bg-gradient-end: #f7f7f9;
+  --text-primary: #0f172a; /* dark slate */
+  --text-secondary: rgba(15, 23, 42, 0.75);
+  --border-color: rgba(15, 23, 42, 0.06);
+  --card-bg: rgba(255, 255, 255, 0.88);
+  --card-hover: rgba(248, 250, 252, 0.95);
+  --heading-gradient: linear-gradient(135deg, #7c3aed, #6366f1, #06b6d4);
+  --text-gradient: linear-gradient(135deg, #0f172a, #1e293b);
+}
+
+/* Base styles for light mode */
+:root[class~="light"] body {
+  background: #ffffff;
+  color: var(--text-primary);
+}
+
+/* Theme-aware animated gradient text */
+.animated-gradient-text {
+  /* ensure gradient only paints the glyphs */
+  background: var(--heading-gradient);
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent; /* Safari/Chrome requirement */
+  color: transparent;
+  display: inline-block !important; /* prevent block-level width stretching */
+  width: auto !important;
+  padding: 0 !important;
+  line-height: 1;
+  white-space: nowrap; /* keep gradient tightly on the text */
+}
+
+/* Theme-aware text glow effects */
+.text-glow {
+  text-shadow: 0 0 20px rgba(139, 100, 193, 0.3);
+}
+
+:root[class~="light"] .text-glow {
+  text-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+}
+
+/* Theme-aware glass cards */
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+/* Theme helper utilities */
+.theme-text-primary { color: var(--text-primary) !important; }
+.theme-text-secondary { color: var(--text-secondary) !important; }
+.theme-bg-soft { background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(248,250,252,0.4)) !important; }
+.theme-card { background: var(--card-bg); border: 1px solid var(--border-color); }
+
+/* Apply theme transitions */
+body,
+.glass-card,
+.social-outline-btn,
+button,
+a {
+  transition: background-color 0.3s ease,
+              color 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.3s ease,
+              backdrop-filter 0.3s ease;
+}
+
+/* Theme-aware background */
+body {
+  background: linear-gradient(180deg, var(--bg-gradient-start), var(--bg-gradient-end));
+  color: var(--text-primary);
+}
+
+/* Theme-aware cards */
+.glass-card {
+  background: var(--card-bg);
+  border-color: var(--border-color);
+}
+
+.glass-card:hover {
+  background: var(--card-hover);
+}
+
+/* Theme-aware text */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+@layer components {
+  .text-glow {
+    text-shadow: 0 0 20px rgba(139, 100, 193, 0.3);
+  }
+  
+  .text-glow-strong {
+    text-shadow: 0 0 30px rgba(139, 100, 193, 0.5), 0 0 60px rgba(139, 100, 193, 0.3);
+  }
+  
+  .bg-blob {
+    background: radial-gradient(circle, rgba(139, 100, 193, 0.4) 0%, rgba(223, 217, 246, 0.2) 100%);
+  }
+  
+  .glass-card {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+  }
+  
+  .glass-card:hover::before {
+    left: 100%;
+  }
+
+/* neon outline icons */
+.icon-outline {
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  transition: all 0.18s ease;
+  filter: drop-shadow(0 6px 18px rgba(0,240,255,0.06));
+}
+
+.icon-instagram { stroke: url(#grad-instagram); }
+.icon-x { stroke: var(--accent-cyan); filter: drop-shadow(0 8px 26px rgba(0,240,255,0.08)); }
+.icon-reddit { stroke: rgba(255,144,44,0.95); filter: drop-shadow(0 8px 26px rgba(255,144,44,0.06)); }
+
+.social-outline-btn { width: 48px; height: 48px; display:inline-flex; align-items:center; justify-content:center; border-radius:9999px; }
+.social-outline-btn:hover .icon-outline { transform: scale(1.05); filter: drop-shadow(0 12px 36px rgba(0,240,255,0.12)); }
+
+/* floating blobs */
+@keyframes blobDrift {
+  0% { transform: translateY(0) translateX(0); opacity: 0.6 }
+  50% { transform: translateY(-14px) translateX(6px); opacity: 0.95 }
+  100% { transform: translateY(0) translateX(0); opacity: 0.6 }
+}
+
+@keyframes blobDriftDelayed {
+  0% { transform: translateY(0) translateX(0); opacity: 0.6 }
+  50% { transform: translateY(-10px) translateX(-6px); opacity: 0.9 }
+  100% { transform: translateY(0) translateX(0); opacity: 0.6 }
+}
+
+.animate-blob-drift { animation: blobDrift 12s ease-in-out infinite; }
+.animate-blob-drift-delayed { animation: blobDriftDelayed 14s ease-in-out infinite; }
+  
+  .gradient-button {
+    background: linear-gradient(135deg, #8b64c1 0%, #dfd9f6 100%);
+    box-shadow: 0 4px 20px rgba(139, 100, 193, 0.3);
+    transition: all 0.15s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .gradient-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s;
+  }
+  
+  .gradient-button:hover::before {
+    left: 100%;
+  }
+  
+  .gradient-button:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 25px rgba(139, 100, 193, 0.4);
+  }
+  
+  .ghost-button {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.15s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .ghost-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+  }
+  
+  .ghost-button:hover::before {
+    left: 100%;
+  }
+  
+  .ghost-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.02);
+  }
+  
+  .floating {
+    animation: floating 6s ease-in-out infinite;
+  }
+  
+  .pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite alternate;
+  }
+  
+  .shimmer {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+}
+
+@layer utilities {
+  .animate-blob-drift {
+    animation: blobDrift 20s ease-in-out infinite alternate;
+  }
+  
+  .animate-blob-drift-delayed {
+    animation: blobDrift 20s ease-in-out infinite alternate 3s;
+  }
+}
+
+/* Animated gradient text & number slide */
+.animated-gradient-text {
+  background: linear-gradient(90deg, #ff6ad5 0%, #836aff 50%, #5fcbff 100%);
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  display: inline-block !important; /* ensure background is clipped to text shape only */
+  width: auto !important;
+  padding: 0 !important;
+  line-height: 1;
+  white-space: nowrap;
+  text-shadow: 0 6px 30px rgba(143, 94, 207, 0.28);
+  transition: background-position 0.9s ease, transform 0.25s ease, text-shadow 0.25s ease;
+}
+
+/* Light mode: use solid dark text for animated headings (no gradient) */
+:root[class~="light"] .animated-gradient-text {
+  /* show solid dark text in light mode but keep a mild shadow to avoid flatness */
+  background: none !important;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  color: var(--text-primary) !important;
+  -webkit-text-fill-color: var(--text-primary) !important;
+  text-shadow: 0 6px 18px rgba(2,6,23,0.06);
+}
+
+.number-box {
+  min-width: 84px;
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 8px 30px rgba(100, 50, 140, 0.06);
+}
+
+.number-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.number-box {
+  min-width: 108px;
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 12px 40px rgba(100, 50, 140, 0.06);
+}
+.number-value {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.glow-strong {
+  text-shadow: 0 0 18px rgba(139, 100, 193, 0.45), 0 0 40px rgba(95, 203, 255, 0.12);
+}
+
+.social-btn.instagram { background: radial-gradient(circle at 25% 25%, #ff6ad5, #836aff); }
+.social-btn.x { background: radial-gradient(circle at 25% 25%, #5fcbff, #836aff); }
+.social-btn.reddit { background: radial-gradient(circle at 25% 25%, #ff6ad5, #5fcbff); }
+.social-btn.email { background: rgba(255,255,255,0.04); }
+/* Social button color variants */
+.social-btn.instagram { background: radial-gradient(circle at 25% 25%, #ff6ad5, #836aff); }
+.social-btn.x { background: radial-gradient(circle at 25% 25%, #5fcbff, #836aff); }
+.social-btn.reddit { background: radial-gradient(circle at 25% 25%, #ff6ad5, #5fcbff); }
+.social-btn.email { background: rgba(255,255,255,0.04); }
+
+.number-box:hover { transform: translateY(-8px) scale(1.035); box-shadow: 0 18px 50px rgba(95,203,255,0.08); }
+
+/* Custom Keyframes */
+@keyframes floating {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes pulseGlow {
+  0% { 
+    box-shadow: 0 0 20px rgba(139, 100, 193, 0.3);
+    transform: scale(1);
+  }
+  100% { 
+    box-shadow: 0 0 40px rgba(139, 100, 193, 0.6);
+    transform: scale(1.02);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes rotateStar {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.rotate-star {
+  animation: rotateStar 2.2s linear infinite;
+  opacity: 0.95;
+}
+
+.nav-hidden { opacity: 0; transform: translateY(-8px); pointer-events: none; }
+
+/* Feature section specifics */
+.features-bg {
+  background: radial-gradient(circle at 10% 20%, rgba(10,20,40,0.6), transparent 15%), radial-gradient(circle at 90% 80%, rgba(3,10,30,0.6), transparent 18%);
+}
+
+.feature-card:hover {
+  box-shadow: 0 18px 60px rgba(95,178,255,0.06), 0 6px 30px rgba(139,100,193,0.06);
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* Meaning section gradient + glow */
+.gradient-meaning {
+  background: linear-gradient(90deg, #ff66cc 0%, #9966ff 50%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 12px rgba(255,102,204,0.32));
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.gradient-meaning:hover {
+  transform: scale(1.02);
+  filter: drop-shadow(0 0 20px rgba(255,102,204,0.42));
+}
+
+/* DifferentSection enhanced styles */
+.neon-underline {
+  box-shadow: 0 8px 32px rgba(0,240,255,0.12);
+  animation: neonPulse 3s ease-in-out infinite;
+}
+
+.glass-card-new {
+  background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: all 0.3s ease-out;
+}
+
+.glass-card-new:hover {
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03));
+  border-color: rgba(255,255,255,0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0,240,255,0.15);
+}
+
+/* Enhanced animations */
+@keyframes neonPulse {
+  0% { box-shadow: 0 8px 32px rgba(0,240,255,0.12); }
+  50% { box-shadow: 0 8px 32px rgba(192,132,252,0.18); }
+  100% { box-shadow: 0 8px 32px rgba(0,240,255,0.12); }
+}
+
+@keyframes glowPulse {
+  0% { text-shadow: 0 0 15px rgba(176,106,255,0.3); }
+  50% { text-shadow: 0 0 30px rgba(255,121,224,0.4); }
+  100% { text-shadow: 0 0 15px rgba(176,106,255,0.3); }
+}
+
+@keyframes floatCard {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+.floating-card {
+  animation: floatCard 6s ease-in-out infinite;
+}
+
+/* Social icon enhanced styles */
+.social-outline-btn {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: all 0.2s ease-out;
+}
+
+.social-outline-btn:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.1);
+  transform: translateY(-2px);
+}
+
+/* Instagram gradient */
+.icon-instagram-new {
+  stroke: url(#grad-instagram);
+  filter: drop-shadow(0 0 10px rgba(255,106,213,0.3));
+}
+
+/* Twitter/X neon */
+.icon-x-new {
+  stroke: #00f0ff;
+  filter: drop-shadow(0 0 15px rgba(0,240,255,0.4));
+}
+
+/* Reddit orange glow */
+.icon-reddit-new {
+  stroke: #ff9b3d;
+  filter: drop-shadow(0 0 12px rgba(255,155,61,0.3));
+}
+
+/* Hover effects for icons */
+.social-outline-btn:hover .icon-outline {
+  filter: drop-shadow(0 0 20px rgba(0,240,255,0.5));
+  transform: scale(1.05);
+}
+
+/* Theme transitions */
+.theme-transition {
+  transition: background-color 0.3s ease-in-out,
+              color 0.3s ease-in-out,
+              border-color 0.3s ease-in-out,
+              box-shadow 0.3s ease-in-out;
+}
+
+.number-box {
+  border: 1px solid rgba(139,100,193,0.08);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-blob-drift,
+  .animate-blob-drift-delayed {
+    animation: none;
+  }
+  
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
