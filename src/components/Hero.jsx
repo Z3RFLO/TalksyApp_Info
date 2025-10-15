@@ -136,34 +136,51 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          <motion.h1 
-            variants={fadeInUp} 
-            className="text-[clamp(56px,9vw,120px)] font-extrabold leading-tight text-center"
+          <motion.h1
+            className="text-center mt-12 leading-tight"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
           >
             <div className="block">
               <motion.span
-                className="block theme-text-primary glow-strong"
-                animate={isHoveringHero ? { scale: 1.02, textShadow: '0 0 36px rgba(255,118,224,0.34)' } : { scale: 1, textShadow: '0 0 18px rgba(139,100,193,0.32)' }}
-                transition={{ duration: 0.25 }}
-                onMouseEnter={() => setIsHoveringHero(true)}
-                onMouseLeave={() => setIsHoveringHero(false)}
+                className="text-[clamp(48px,8vw,120px)] font-bold tracking-tight"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
               >
                 Welcome
               </motion.span>
             </div>
+
             <div className="block mt-2">
               <motion.span
                 className="inline-block text-[clamp(56px,10vw,140px)] font-extrabold glow-strong"
-                animate={isHoveringHero ? { backgroundPosition: '100% 50%', transform: 'scale(1.06)' } : { backgroundPosition: '0% 50%', transform: 'scale(1)' }}
+                animate={
+                  isHoveringHero
+                    ? { backgroundPosition: '100% 50%', scale: 1.06 }
+                    : { backgroundPosition: '0% 50%', scale: 1 }
+                }
                 transition={{ duration: 0.45 }}
                 onMouseEnter={() => setIsHoveringHero(true)}
                 onMouseLeave={() => setIsHoveringHero(false)}
               >
-                <span className="animated-gradient-text inline-block" style={{ background: 'linear-gradient(90deg,#ff6ad5,#8b64c1,#5fcbff)' }}>to Talksy</span>
+                <span
+                  className="animated-gradient-text inline-block bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: 'linear-gradient(90deg, #ff6ad5, #8b64c1, #5fcbff)',
+                    backgroundSize: '200% auto',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    display: 'inline-block',
+                  }}
+                >
+                  To Talksy
+                </span>
               </motion.span>
             </div>
           </motion.h1>
-          
+
           <motion.p 
             variants={fadeInUp} 
             className="mt-8 text-xl theme-text-secondary max-w-3xl mx-auto text-center leading-relaxed"
