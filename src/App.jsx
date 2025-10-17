@@ -4,6 +4,7 @@ import FeatureGrid from './components/FeatureGrid';
 import MeaningSection from './components/MeaningSection';
 import WhyChoose from './components/WhyChoose';
 import DifferentSection from './components/DifferentSection';
+import HowTalksyWorks from './components/HowTalksyWorks';
 import Showcase from './components/Showcase';
 import Footer from './components/Footer';
 import { useEffect, useState } from 'react';
@@ -57,6 +58,11 @@ function App() {
 
         <div className="py-40">
           <WhyChoose />
+        </div>
+
+        {/* How Talksy Works - inserted after WhyChoose */}
+        <div className="py-32">
+          <HowTalksyWorks />
         </div>
 
         <div className="py-32">

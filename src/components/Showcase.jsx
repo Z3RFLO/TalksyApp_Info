@@ -25,10 +25,10 @@ export default function Showcase() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-[clamp(28px,5vw,48px)] font-bold theme-text-primary mb-4">See Talksy in <span className="bg-clip-text text-transparent bg-gradient-to-r from-talksy-purple to-talksy-lilac inline-block whitespace-nowrap">Action</span></h2>
-          <p className="text-lg theme-text-secondary max-w-2xl mx-auto mb-8">We removed the public dashboard demo — focus is on the product experience. If you want a private demo, book a call.</p>
+          <h2 className="text-[clamp(28px,5vw,48px)] font-bold theme-text-primary mb-4">    Talksy<span className="bg-clip-text text-transparent bg-gradient-to-r from-talksy-purple to-talksy-lilac inline-block whitespace-nowrap">Action</span></h2>
+          <p className="text-lg theme-text-secondary max-w-2xl mx-auto mb-8">We are still working on the app.</p>
             <div className="flex items-center justify-center gap-4">
-            <button className="px-6 py-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold">Request Demo</button>
+            <button className="px-6 py-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold">Available Soon</button>
             <a href="#" className="px-6 py-3 rounded-full border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}>Contact Sales</a>
           </div>
         </motion.div>

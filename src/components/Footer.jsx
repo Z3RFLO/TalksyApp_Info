@@ -67,8 +67,9 @@ export default function Footer() {
               transition={{ delay: 0.1 }}
               className="theme-text-secondary mb-6 max-w-md"
             >
-              Transform your conversations with AI-powered insights. 
-              Unlock the potential of every interaction with intelligent analysis and real-time recommendations.
+            A social media app focused more on talking with diff people.
+              Can chat with diff people in the main feed, join topic-based sections to discuss specific things, or even create your own community.
+               You can also chat privately. The main goal is to build a chatting-based social media, something real, simple, and focused on conversations.
             </motion.p>
 
             {/* Social links */}
@@ -123,34 +124,6 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Newsletter signup */}
-          <motion.div
-          variants={fadeIn}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="pt-8 mb-8"
-          style={{ borderTop: '1px solid var(--border-color)' }}
-        >
-          <div className="max-w-md">
-            <h3 className="theme-text-primary font-semibold mb-4">Stay Updated</h3>
-            <p className="text-talksy-lilac/70 text-sm mb-4">
-              Get the latest updates and insights delivered to your inbox.
-            </p>
-            <div className="flex space-x-3">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-2 rounded-lg placeholder-talksy-lilac/50 focus:outline-none transition-colors"
-                style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}
-              />
-              <button className="gradient-button px-6 py-2 rounded-lg text-talksy-dark font-semibold">
-                Subscribe
-              </button>
-            </div>
-          </div>
-        </motion.div>
 
         {/* Bottom bar */}
           <motion.div
