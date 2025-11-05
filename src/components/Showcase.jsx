@@ -19,13 +19,13 @@ export default function Showcase() {
       <div className="container mx-auto px-6 relative z-10">
         {/* Simplified showcase: CTA + decorative blobs (dashboard removed) */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 26 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-[clamp(28px,5vw,48px)] font-bold theme-text-primary mb-4">    Talksy<span className="bg-clip-text text-transparent bg-gradient-to-r from-talksy-purple to-talksy-lilac inline-block whitespace-nowrap">Action</span></h2>
+          <h2 className="section-title font-bold theme-text-primary mb-4">    Talksy<span className="bg-clip-text text-transparent bg-gradient-to-r from-talksy-purple to-talksy-lilac inline-block whitespace-nowrap">Action</span></h2>
           <p className="text-lg theme-text-secondary max-w-2xl mx-auto mb-8">We are still working on the app.</p>
             <div className="flex items-center justify-center gap-4">
             <button className="px-6 py-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold">Available Soon</button>

@@ -57,8 +57,7 @@ export default function DifferentSection() {
         viewport={{ once: true, amount: 0.35 }}
         className="container mx-auto px-6 text-center mb-16"
       >
-        <h3 className="text-4xl md:text-5xl font-extrabold leading-tight bg-clip-text text-transparent animated-gradient-text inline-block whitespace-nowrap
-                       dark:text-white text-black">
+        <h3 className="section-title animated-gradient-text inline-block whitespace-nowrap dark:text-white text-black">
           What makes us different?
         </h3>
         <p className="mt-4 text-base md:text-lg font-light text-black/70 dark:text-white/70">

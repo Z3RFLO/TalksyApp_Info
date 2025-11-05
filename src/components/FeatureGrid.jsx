@@ -22,13 +22,13 @@ export default function FeatureGrid() {
 
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
           className="text-center mb-12"
         >
-            <h2 className="text-[clamp(30px,5.5vw,56px)] font-extrabold theme-text-primary mb-4 glow-strong">Why Choose <motion.span
+            <h2 className="section-title theme-text-primary mb-4 glow-strong">Why Choose <motion.span
               initial={{ scale: 0.95 }}
               animate={{ scale: 1 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}

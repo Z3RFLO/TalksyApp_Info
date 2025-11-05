@@ -5,11 +5,11 @@ export default function MeaningSection() {
     <section id="meaning" className="py-32 flex items-center justify-center transition-colors duration-300 bg-gradient-to-b from-[var(--bg-gradient-start)] to-[var(--bg-gradient-end)]">
       <div className="container mx-auto px-6 text-center">
         <motion.h2
-          initial={{ opacity: 0, y: 24, scale: 0.96 }}
+          initial={{ opacity: 0, y: 30, scale: 0.96 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.7, delay: 0.15 }}
-          className="text-[clamp(36px,6vw,88px)] font-extrabold leading-tight theme-text-primary"
+          className="section-title text-[2.5rem] md:text-[3.5rem] lg:text-[4.5rem] font-extrabold leading-tight theme-text-primary"
         >
           <span className="block theme-text-primary">it’s not just</span>
           <motion.span

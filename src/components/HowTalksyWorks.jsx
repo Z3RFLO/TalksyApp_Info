@@ -84,8 +84,8 @@ export default function HowTalksyWorks() {
             key={i}
             className="absolute block rounded-full"
             style={{
-              width: `${6 + (i % 3) * 4}px`,
-              height: `${6 + (i % 3) * 4}px`,
+              width: `${7 + (i % 3) * 4}px`,
+              height: `${10 + (i % 4) * 4}px`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               background: 'radial-gradient(circle, rgba(255,255,255,0.06), transparent 40%)',
@@ -98,13 +98,13 @@ export default function HowTalksyWorks() {
 
       <div className="relative z-10 container mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.7 }}
           className="text-center max-w-3xl mx-auto"
         >
-          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-300">
+          <h2 className="section-title font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-300">
             How Talksy Works
           </h2>
           <p className="mt-4 text-sm md:text-base text-white/70">

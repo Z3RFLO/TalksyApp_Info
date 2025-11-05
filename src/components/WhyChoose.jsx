@@ -27,8 +27,8 @@ export default function WhyChoose() {
       <div className="absolute -left-32 -top-20 w-[600px] h-[600px] bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-20 filter blur-3xl rounded-full" />
       <div className="absolute right-0 top-1/4 w-[420px] h-[420px] bg-blue-500/6 opacity-15 filter blur-2xl rounded-full" />
       <div className="container mx-auto px-6">
-        <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-12">
-          <motion.h2 className="text-[clamp(36px,6vw,72px)] font-extrabold leading-tight theme-text-primary">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="text-center mb-12">
+          <motion.h2 className="section-title leading-tight theme-text-primary">
             <span className="block">Why Choose</span>
             <span className="block bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-blue-400 inline-block whitespace-nowrap">Talksy?</span>
           </motion.h2>

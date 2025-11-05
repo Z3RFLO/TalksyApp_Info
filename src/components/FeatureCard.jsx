@@ -7,7 +7,7 @@ export default function FeatureCard({ title, description, delay = 0 }) {
 
   return (
     <motion.div
-      variants={slideInUp}
+    variants={slideInUp}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: '-100px' }}
@@ -24,7 +24,7 @@ export default function FeatureCard({ title, description, delay = 0 }) {
       <div className="w-8 h-8 rounded-full bg-[rgba(255,255,255,0.06)] dark:bg-[rgba(10,10,12,0.6)] flex items-center justify-center theme-text-primary text-sm font-bold"> {title.charAt(0)} </div>
       </div>
 
-  <h3 className={`text-lg md:text-xl font-bold mb-2 ${isHovered ? 'theme-text-primary' : 'theme-text-primary/90'}`}>{title}</h3>
+  <h3 className={`card-title mb-2 ${isHovered ? 'theme-text-primary' : 'theme-text-primary/90'}`}>{title}</h3>
   <p className="text-sm theme-text-secondary mb-4 leading-relaxed">{description}</p>
 
       <div className="mt-4 h-1 bg-gradient-to-r from-[#6b4bd8] to-[#8ac8ff] rounded-full origin-left relative z-10" style={{ transform: isHovered ? 'scaleX(1)' : 'scaleX(0)' }} />

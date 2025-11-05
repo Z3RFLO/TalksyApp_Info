@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
 /* fallback to Inter if Poppins is unavailable */
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   html {
@@ -33,25 +35,7 @@ html, body, #root {
   --text-gradient: linear-gradient(135deg, #ffffff, #e0e7ff);
 }
 
-/* Light theme variables - soft, eye-friendly colors */
-:root[class~="light"] {
-  /* Softer light theme for reduced glare */
-  --bg-gradient-start: #fbfbfc; /* very light gray */
-  --bg-gradient-end: #f7f7f9;
-  --text-primary: #0f172a; /* dark slate */
-  --text-secondary: rgba(15, 23, 42, 0.75);
-  --border-color: rgba(15, 23, 42, 0.06);
-  --card-bg: rgba(255, 255, 255, 0.88);
-  --card-hover: rgba(248, 250, 252, 0.95);
-  --heading-gradient: linear-gradient(135deg, #7c3aed, #6366f1, #06b6d4);
-  --text-gradient: linear-gradient(135deg, #0f172a, #1e293b);
-}
-
-/* Base styles for light mode */
-:root[class~="light"] body {
-  background: #ffffff;
-  color: var(--text-primary);
-}
+/* Light mode removed - site is dark by design. */
 
 /* Theme-aware animated gradient text */
 .animated-gradient-text {
@@ -75,9 +59,7 @@ html, body, #root {
   text-shadow: 0 0 20px rgba(139, 100, 193, 0.3);
 }
 
-:root[class~="light"] .text-glow {
-  text-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
-}
+/* removed light-mode text-glow override */
 
 /* Theme-aware glass cards */
 .glass-card {
@@ -301,16 +283,7 @@ p {
   transition: background-position 0.9s ease, transform 0.25s ease, text-shadow 0.25s ease;
 }
 
-/* Light mode: use solid dark text for animated headings (no gradient) */
-:root[class~="light"] .animated-gradient-text {
-  /* show solid dark text in light mode but keep a mild shadow to avoid flatness */
-  background: none !important;
-  -webkit-background-clip: unset;
-  background-clip: unset;
-  color: var(--text-primary) !important;
-  -webkit-text-fill-color: var(--text-primary) !important;
-  text-shadow: 0 6px 18px rgba(2,6,23,0.06);
-}
+/* light-mode animated text rules removed to keep gradient headings in dark mode */
 
 .number-box {
   min-width: 84px;

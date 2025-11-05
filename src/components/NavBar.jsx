@@ -2,10 +2,27 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { fadeIn } from '../lib/motionVariants';
 import { useState, useEffect, useRef } from 'react';
 
-export default function NavBar({ theme, setTheme }) {
+export default function NavBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showCenterLinks, setShowCenterLinks] = useState(true);
   const lastScrollY = useRef(typeof window !== 'undefined' ? window.scrollY : 0);
+  // Theme state (was missing and caused runtime ReferenceError)
+  const [theme, setTheme] = useState(() => (typeof document !== 'undefined' && document.documentElement.classList.contains('light')) ? 'light' : 'dark');
+
+  useEffect(() => {
+    // Ensure document has theme class to match state
+    if (typeof document !== 'undefined') {
+      if (theme === 'light') {
+        document.documentElement.classList.add('light');
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+      }
+    }
+  }, [theme]);
+
+  const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
 
   useEffect(() => {
     function onScroll() {
@@ -20,14 +37,6 @@ export default function NavBar({ theme, setTheme }) {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-
-  function toggleTheme() {
-    try {
-      const newTheme = theme === 'light' ? 'dark' : 'light';
-      setTheme(newTheme);
-      // document classList and localStorage handled by App
-    } catch (e) {}
-  }
 
   return (
   <motion.nav 
@@ -145,12 +154,13 @@ export default function NavBar({ theme, setTheme }) {
             </motion.button>
             
             {/* Join button */}
-            <motion.button 
+            <motion.a 
+              href="/waitlist.html"
               className="bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-2 rounded-full text-white font-semibold relative overflow-hidden flex items-center gap-2"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <motion.span className="relative z-10">Join</motion.span>
+              <motion.span className="relative z-10">Join Waitlist</motion.span>
               <motion.span
                 className="relative z-10"
                 animate={{ x: [0, 3, 0] }}
@@ -164,7 +174,7 @@ export default function NavBar({ theme, setTheme }) {
                 whileHover={{ x: '100%' }}
                 transition={{ duration: 0.6 }}
               />
-            </motion.button>
+            </motion.a>
           </motion.div>
 
           {/* Mobile Menu Button */}

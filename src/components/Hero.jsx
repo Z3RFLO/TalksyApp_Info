@@ -1,17 +1,18 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { fadeInUp, stagger } from '../lib/motionVariants';
 import { useEffect, useState } from 'react';
+import { BsDiscord, BsTwitterX, BsInstagram } from 'react-icons/bs';
 
 function NumberBox({ value, label, delay = 0 }) {
   return (
     <motion.div
-      className="number-box text-center"
+      className="number-box text-center px-6 py-4 bg-[#0F1115] rounded-2xl backdrop-blur-sm"
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{ scale: 1.09 }}
+      whileHover={{ scale: 1.05 }}
       transition={{ delay, duration: 0.45, ease: 'easeOut' }}
     >
-  <div className="number-value relative overflow-hidden theme-text-primary" style={{ height: 38 }}>
+      <div className="number-value relative overflow-hidden text-white text-4xl font-bold" style={{ height: 48 }}>
         <AnimatePresence mode="wait">
           <motion.div
             key={value}
@@ -19,12 +20,13 @@ function NumberBox({ value, label, delay = 0 }) {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -8, opacity: 0 }}
             transition={{ duration: 0.35 }}
+            className="bg-gradient-to-r from-[#E555FF] to-[#9747FF] bg-clip-text text-transparent"
           >
             {value}
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className="number-label mt-1 uppercase tracking-wide">{label}</div>
+      <div className="number-label mt-2 uppercase tracking-wider text-[#9EA3AF] text-sm font-medium">{label}</div>
     </motion.div>
   );
 }
@@ -73,7 +75,7 @@ export default function Hero() {
   }, []);
 
   return (
-  <section className="relative overflow-hidden min-h-screen flex items-center transition-colors duration-300" style={{ background: 'linear-gradient(180deg, var(--bg-gradient-start), var(--bg-gradient-end))' }}>
+    <section className="relative overflow-hidden min-h-screen flex items-center transition-colors duration-300" style={{ background: 'linear-gradient(180deg, var(--bg-gradient-start), var(--bg-gradient-end))' }}>
       {/* Star particles background */}
       {[...Array(50)].map((_, i) => (
         <motion.div
@@ -113,7 +115,7 @@ export default function Hero() {
         transition={{ type: "spring", stiffness: 50, damping: 30 }}
       />
 
-  <div className="container mx-auto px-6 py-20 relative z-10 flex flex-col items-center justify-center text-center">
+      <div className="container mx-auto px-6 py-20 relative z-10 flex flex-col items-center justify-center text-center">
         <motion.div 
           variants={stagger} 
           initial="hidden" 
@@ -138,14 +140,14 @@ export default function Hero() {
 
           <motion.h1
             className="text-center mt-12 leading-tight"
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 65 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
             <div className="block">
               <motion.span
-                className="text-[clamp(48px,8vw,120px)] font-bold tracking-tight"
-                initial={{ opacity: 0, y: 30 }}
+                className="hero-title-primary font-bold tracking-tight"
+                initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
@@ -153,13 +155,13 @@ export default function Hero() {
               </motion.span>
             </div>
 
-            <div className="block mt-2">
+            <div className="block mt-8">
               <motion.span
-                className="inline-block text-[clamp(56px,10vw,140px)] font-extrabold glow-strong"
+                className="hero-title-accent inline-block font-extrabold glow-strong"
                 animate={
                   isHoveringHero
                     ? { backgroundPosition: '100% 50%', scale: 1.06 }
-                    : { backgroundPosition: '0% 50%', scale: 1 }
+                    : { backgroundPosition: '0% 50%', scale: 1.2 }
                 }
                 transition={{ duration: 0.45 }}
                 onMouseEnter={() => setIsHoveringHero(true)}
@@ -189,15 +191,15 @@ export default function Hero() {
           </motion.p>
           
           {/* Launch Indicator */}
-            <motion.div
-              variants={fadeInUp}
-              className="mt-12 flex items-center justify-center gap-2 theme-text-secondary"
-            >
-              <svg className="w-5 h-5 text-[color:var(--text-secondary)]" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" style={{ opacity: 0.08 }}>
-                <path d="M2 21l21-9L2 3v7l14 2-14 2v7z" />
-              </svg>
-              <span className="text-sm font-medium">Launching Soon</span>
-            </motion.div>
+          <motion.div
+            variants={fadeInUp}
+            className="mt-12 flex items-center justify-center gap-2 theme-text-secondary"
+          >
+            <svg className="w-5 h-5 text-[color:var(--text-secondary)]" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" style={{ opacity: 0.08 }}>
+              <path d="M2 21l21-9L2 3v7l14 2-14 2v7z" />
+            </svg>
+            <span className="text-sm font-medium">Launching Soon</span>
+          </motion.div>
 
           {/* Countdown Timer */}
           <motion.div
@@ -220,11 +222,11 @@ export default function Hero() {
             variants={fadeInUp} 
             className="mt-12 flex justify-center"
           >
-            <motion.button 
-              className="bg-gradient-to-r from-[#ff6ad5] to-[#5fcbff] px-10 py-4 rounded-full text-white font-bold text-lg relative overflow-hidden group flex items-center gap-3 shadow-2xl"
+            <motion.a 
+              href="/waitlist.html"
+              className="bg-gradient-to-r from-[#E555FF] to-[#9747FF] px-10 py-4 rounded-full text-white font-bold text-lg relative overflow-hidden group flex items-center gap-3 shadow-2xl"
               whileHover={{ scale: 1.04, boxShadow: '0 20px 60px rgba(143,94,207,0.18)' }}
               whileTap={{ scale: 0.97 }}
-              onClick={() => window.open('https://whatsapp.com/channel/0029VbBGOVA8V0ttHpvTnM0d', '_blank')}
             >
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
@@ -232,7 +234,7 @@ export default function Hero() {
                 whileHover={{ x: '100%' }}
                 transition={{ duration: 0.6 }}
               />
-              <span className="relative z-10">Join Community</span>
+              <span className="relative z-10">Join Waitlist</span>
               <motion.span
                 className="relative z-10"
                 animate={{ x: [0, 6, 0] }}
@@ -240,7 +242,7 @@ export default function Hero() {
               >
                 →
               </motion.span>
-            </motion.button>
+            </motion.a>
           </motion.div>
 
           {/* Enhanced Social Media Icons with premium glow effects */}
@@ -379,8 +381,6 @@ export default function Hero() {
         </motion.div>
       </div>
 
-        {/* Cursor follower removed - text now glows on hover instead */}
-
       {/* Enhanced Scroll indicator */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
@@ -392,7 +392,7 @@ export default function Hero() {
           document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
         }}
       >
-  <div className="w-6 h-10 border-2 rounded-full flex justify-center relative" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+        <div className="w-6 h-10 border-2 rounded-full flex justify-center relative" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
           <motion.div 
             className="w-1 h-3 bg-gradient-to-b from-talksy-purple to-talksy-lilac rounded-full mt-2"
             animate={{ y: [0, 12, 0] }}
@@ -400,7 +400,7 @@ export default function Hero() {
           />
         </div>
         <motion.div
-            className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-[color:var(--text-secondary)] text-xs"
+          className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-[color:var(--text-secondary)] text-xs"
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 2, repeat: Infinity }}
         >

@@ -1,158 +1,184 @@
-import { motion } from 'framer-motion';
-import { fadeIn } from '../lib/motionVariants';
-import { Github, Twitter, Linkedin, Mail } from 'lucide-react';
+/**
+ * Footer component - Zen-inspired design
+ * Tested: desktop 1440px / tablet 768px / mobile 375px
+ */
 
-export default function Footer() {
-  const currentYear = new Date().getFullYear();
+import { motion, AnimatePresence } from 'framer-motion';
+import { BsDiscord, BsTwitterX, BsInstagram, BsGithub } from 'react-icons/bs';
+import { MdOutlineEmail } from 'react-icons/md';
 
-  const footerLinks = {
-    product: [
-      { name: 'Features', href: '#features' },
-      { name: 'Pricing', href: '#pricing' },
-      { name: 'API', href: '#api' },
-      { name: 'Integrations', href: '#integrations' }
-    ],
-    company: [
-      { name: 'About', href: '#about' },
-      { name: 'Blog', href: '#blog' },
-      { name: 'Careers', href: '#careers' },
-      { name: 'Contact', href: '#contact' }
-    ],
-    resources: [
-      { name: 'Documentation', href: '#docs' },
-      { name: 'Help Center', href: '#help' },
-      { name: 'Community', href: '#community' },
-      { name: 'Status', href: '#status' }
-    ],
-    legal: [
-      { name: 'Privacy', href: '#privacy' },
-      { name: 'Terms', href: '#terms' },
-      { name: 'Security', href: '#security' },
-      { name: 'Compliance', href: '#compliance' }
-    ]
+// Color tokens
+const tokens = {
+  bgDark: '#0F1115',
+  textLight: '#FFFFFF',
+  muted: '#9EA3AF',
+  accent: '#7A5AF8',
+  pillBg: '#111111'
+};
+
+// Navigation links structure
+const footerLinks = {
+  getStarted: [
+    { label: 'Home', href: '/' },
+    { label: 'About', href: '/about' },
+    { label: 'Team', href: '/team' }
+  ],
+  getHelp: [
+    { label: 'Contact', href: '/contact' },
+    { label: 'Support', href: '/support' },
+    { label: 'Privacy', href: '/privacy' }
+  ],
+  about: [
+    { label: 'Blog', href: '/blog' },
+    { label: 'Careers', href: '/careers' },
+    { label: 'Press', href: '/press' }
+  ]
+};
+
+// Social media links
+const socialLinks = [
+  { label: 'GitHub', href: 'https://github.com/talksy', icon: BsGithub },
+  { label: 'Twitter', href: 'https://twitter.com/talksy', icon: BsTwitterX },
+  { label: 'Discord', href: 'https://discord.gg/talksy', icon: BsDiscord },
+  { label: 'Instagram', href: 'https://instagram.com/talksy', icon: BsInstagram },
+  { label: 'Email', href: 'mailto:contact@talksy.com', icon: MdOutlineEmail }
+];
+
+// SVG Components
+const CornerArcs = () => (
+  <svg
+    className="absolute bottom-0 right-0 w-[300px] h-[300px] pointer-events-none opacity-[0.09]"
+    viewBox="0 0 300 300"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M300 300C300 134.315 165.685 0 0 0" stroke="#000000ff" strokeWidth="1"/>
+    <path d="M250 300C250 162.03 137.97 50 0 50" stroke="#000000ff" strokeWidth="1"/>
+    <path d="M200 300C200 189.745 110.255 100 0 100" stroke="#000000ff" strokeWidth="1"/>
+  </svg>
+);
+
+// Main component
+export default function Footer({ title = "Talksy" }) {
+  // Animation variants with reduced motion support
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        when: "beforeChildren",
+      }
+    }
   };
 
-  const socialLinks = [
-    { icon: Github, href: '#', label: 'GitHub' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Mail, href: '#', label: 'Email' }
-  ];
+  const childVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
 
   return (
-  <footer className="border-t" style={{ background: 'linear-gradient(180deg, var(--bg-gradient-start), var(--bg-gradient-end))', borderTopColor: 'var(--border-color)' }}>
-    <div className="container mx-auto px-6 py-16">
-        {/* Main footer content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 mb-12">
-          {/* Brand section */}
-          <div className="lg:col-span-2">
-            <motion.div
-              variants={fadeIn}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="flex items-center space-x-2 mb-6"
-            >
-              <div className="w-8 h-8 bg-gradient-to-r from-talksy-purple to-talksy-lilac rounded-lg flex items-center justify-center">
-                <span className="text-talksy-dark font-bold text-sm">T</span>
-              </div>
-              <span className="theme-text-primary font-semibold text-lg">Talksy</span>
-            </motion.div>
-            
-            <motion.p
-              variants={fadeIn}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="theme-text-secondary mb-6 max-w-md"
-            >
-            A social media app focused more on talking with diff people.
-              Can chat with diff people in the main feed, join topic-based sections to discuss specific things, or even create your own community.
-               You can also chat privately. The main goal is to build a chatting-based social media, something real, simple, and focused on conversations.
-            </motion.p>
-
-            {/* Social links */}
-            <motion.div
-              variants={fadeIn}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="flex space-x-4"
-            >
-              {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  className="w-10 h-10 rounded-lg flex items-center justify-center transition-colors group"
-                  aria-label={social.label}
-                  style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)' }}
-                >
-                  <social.icon className="w-5 h-5 text-talksy-lilac/70 transition-colors" style={{ transition: 'color 0.2s' }} />
-                </a>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Links sections */}
-          {Object.entries(footerLinks).map(([section, links], sectionIndex) => (
-            <motion.div
-              key={section}
-              variants={fadeIn}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 * (sectionIndex + 1) }}
-            >
-              <h3 className="theme-text-primary font-semibold mb-4 capitalize">
-                {section}
-              </h3>
-              <ul className="space-y-3">
-                {links.map((link, linkIndex) => (
-                  <li key={linkIndex}>
-                    <a
-                      href={link.href}
-                      className="text-talksy-lilac/70 hover:text-white transition-colors text-sm"
-                    >
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
-
-
-        {/* Bottom bar */}
-          <motion.div
-          variants={fadeIn}
+    <footer 
+      className="relative rounded-t-[60px] overflow-hidden"
+      style={{
+        background: 'radial-gradient(circle at top left, #141313ff, #000000ff)',
+        boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 0.05)'
+      }}
+    >
+      <AnimatePresence>
+        <motion.div
+          variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="pt-8 flex flex-col md:flex-row justify-between items-center"
-          style={{ borderTop: '1px solid var(--border-color)' }}
+          className="container mx-auto px-6 pt-20 pb-12"
         >
-          <p className="text-talksy-lilac/50 text-sm mb-4 md:mb-0">
-            © {currentYear} Talksy. All rights reserved.
-          </p>
-          
-          <div className="flex items-center space-x-6 text-sm">
-            <div className="flex items-center space-x-2 text-talksy-lilac/50">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span>All systems operational</span>
+          {/* Main grid layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
+            {/* Left column */}
+            <motion.div variants={childVariants} className="lg:col-span-5">
+              <h2 className="font-extrabold text-[clamp(28px,5vw,48px)] text-[#0F1720] leading-tight mb-6">
+                {title}
+              </h2>
+              <p className="text-base lg:text-lg text-[#4B4B4B] mb-8 max-w-md">
+                Connect, share, and build relationships in a beautiful, privacy-focused space.
+              </p>
+              
+              {/* Primary CTA */}
+              <motion.a
+                href="/waitlist.html"
+                className="inline-flex items-center px-8 py-3 rounded-full bg-gradient-to-r from-[#7A5AF8] to-[#6A48F0] text-white font-medium shadow-lg hover:scale-[1.03] transition-transform"
+                whileHover={{ scale: 1.03 }}
+                aria-label="Join Waitlist"
+              >
+                Join Waitlist →
+              </motion.a>
+
+              {/* Social icons */}
+              <div className="mt-12 flex gap-4">
+                {socialLinks.map((social) => (
+                  <motion.a
+                    key={social.label}
+                    href={social.href}
+                    className="w-10 h-10 flex items-center justify-center rounded-full bg-[#EAE6DA] text-[#111111] hover:bg-gradient-to-r from-[#7A5AF8] to-[#6A48F0] hover:text-white transition-all"
+                    whileHover={{ y: -2 }}
+                    aria-label={`Follow us on ${social.label}`}
+                  >
+                    <social.icon className="w-5 h-5" />
+                  </motion.a>
+                ))}
+              </div>
+
+              {/* Made with love */}
+              <p className="mt-12 text-sm text-[#4B4B4B]">
+                Made with <span aria-label="love">♥</span> by the Talksy Team
+              </p>
+            </motion.div>
+
+            {/* Right columns */}
+            <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-3 gap-8">
+              {Object.entries(footerLinks).map(([key, links]) => (
+                <motion.div key={key} variants={childVariants}>
+                  <h3 className="text-lg font-semibold text-[#0F1720] mb-6">
+                    {key.replace(/([A-Z])/g, ' $1').trim()}
+                  </h3>
+                  <ul className="space-y-4">
+                    {links.map((link) => (
+                      <li key={link.label}>
+                        <motion.a
+                          href={link.href}
+                          className="text-[#4B4B4B] hover:text-[#7A5AF8] transition-colors"
+                          whileHover={{ y: -2 }}
+                        >
+                          {link.label}
+                        </motion.a>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ))}
             </div>
-            <a href="#privacy" className="text-talksy-lilac/50 hover:text-white transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#terms" className="text-talksy-lilac/50 hover:text-white transition-colors">
-              Terms of Service
-            </a>
           </div>
+
+          {/* Bottom bar */}
+          <motion.div 
+            variants={childVariants}
+            className="mt-20 pt-8 border-t border-[#11111133] text-center text-sm text-[#4B4B4B]"
+          >
+            © {new Date().getFullYear()} Talksy. All rights reserved.
+          </motion.div>
         </motion.div>
-      </div>
+      </AnimatePresence>
+
+      {/* Decorative elements */}
+      <CornerArcs />
     </footer>
   );
 }

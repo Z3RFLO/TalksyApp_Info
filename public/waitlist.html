@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Talksy — Join Waitlist</title>
+  <link rel="stylesheet" href="/src/index.css" />
+  <style>
+    body { font-family: 'Poppins', 'Inter', system-ui, sans-serif; background: #06060a; color: #fff; }
+    .container { max-width: 720px; margin: 48px auto; padding: 24px; }
+    .card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 28px; }
+    label { display:block; margin-bottom:8px; font-weight:600; }
+    input { width:100%; padding:12px 14px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.01); color: #fff; }
+    .muted { color: rgba(255,255,255,0.65); font-size:0.95rem; }
+    .row { margin-bottom:16px; }
+    .btn { display:inline-block; padding:12px 18px; border-radius:999px; background: linear-gradient(90deg,#7FA0FF,#9A7BFF); color:#fff; font-weight:700; text-decoration:none; }
+    .help { font-size:0.9rem; color: rgba(255,255,255,0.6); margin-top:8px }
+    .success { color: #9ff5d0; }
+    .error { color: #ff9aa2; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1 style="font-size:32px;margin:0 0 8px">Join the Talksy Waitlist</h1>
+      <p class="muted">Enter your details below. We'll reach out when we have early access or updates.</p>
+
+  <form id="waitlist-form" onsubmit="return false;" novalidate>
+        <div class="row">
+          <label for="name">Full name</label>
+          <input id="name" name="name" type="text" placeholder="Your name" required />
+        </div>
+
+        <div class="row">
+          <label for="email">Email address</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required />
+        </div>
+
+        <div class="row">
+          <label for="phone">Phone (optional)</label>
+          <input id="phone" name="phone" type="tel" placeholder="+1 555 555 5555" />
+        </div>
+
+        <div class="row">
+          <label for="notes">Notes (optional)</label>
+          <input id="notes" name="notes" type="text" placeholder="How did you hear about Talksy?" />
+        </div>
+
+        <div class="row" style="display:flex;gap:12px;align-items:center">
+          <button id="submit-btn" class="btn" type="button">Send to Talksy</button>
+          <div id="status" class="muted"></div>
+        </div>
+
+        <p class="help">On submit we'll open your email client with the details pre-filled to <strong>talksyzz7o@gmail.com</strong>. This is a simple privacy-friendly way to collect waitlist entries without a backend. If mail client doesn't open, copy the generated message and email it manually.</p>
+      </form>
+
+      <hr style="border:none;border-top:1px solid rgba(255,255,255,0.04);margin:18px 0" />
+      <p class="muted" style="font-size:0.9rem">By joining, you agree to receive occasional updates about Talksy. Phone number is optional and used for SMS updates only if provided.</p>
+    </div>
+  </div>
+
+      <script>
+    (function(){
+      const form = document.getElementById('waitlist-form');
+      const submit = document.getElementById('submit-btn');
+      const status = document.getElementById('status');
+
+      // CONFIG: set your serverless/form endpoint here.
+      // Examples:
+      // - Formspree: https://formspree.io/f/{formId}
+      // - Netlify Functions or server endpoint: https://example.com/.netlify/functions/waitlist
+      // If left as an empty string, the page will fallback to opening the user's mail client.
+      const ENDPOINT = '';
+
+      function validateEmail(email){
+        return /\S+@\S+\.\S+/.test(email);
+      }
+
+      async function submitToEndpoint(data){
+        try{
+          const res = await fetch(ENDPOINT, {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          });
+          return res.ok;
+        }catch(e){
+          return false;
+        }
+      }
+
+      function buildBody(data){
+        return [
+          'Waitlist Signup',
+          '',
+          'Name: ' + data.name,
+          'Email: ' + data.email,
+          'Phone: ' + (data.phone || '(not provided)'),
+          'Notes: ' + (data.notes || '(none)'),
+          '',
+          'Submitted from Talksy waitlist page.'
+        ].join('\n');
+      }
+
+      submit.addEventListener('click', async function(e){
+        e.preventDefault();
+        status.textContent = '';
+        status.className = 'muted';
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const notes = document.getElementById('notes').value.trim();
+
+        if(!name){ status.textContent = 'Please enter your name.'; status.className='error'; return; }
+        if(!email || !validateEmail(email)){ status.textContent = 'Please enter a valid email.'; status.className='error'; return; }
+
+        const payload = { name, email, phone, notes, source: 'waitlist-page' };
+
+        // If an ENDPOINT is configured, try to POST to it first.
+        if(ENDPOINT && ENDPOINT.startsWith('http')){
+          status.textContent = 'Sending...';
+          const ok = await submitToEndpoint(payload);
+          if(ok){
+            status.textContent = 'Thanks — your spot is saved. We will contact you soon.';
+            status.className = 'success';
+            // Optionally clear form
+            form.reset();
+            return;
+          } else {
+            status.textContent = 'Submission failed — falling back to opening your mail client.';
+            status.className = 'error';
+          }
+        }
+
+        // Fallback: compose mailto in same tab (user requested same-tab behaviour)
+        const body = buildBody(payload);
+        const subject = encodeURIComponent('Talksy Waitlist Signup');
+        const mailto = 'mailto:talksyzz7o@gmail.com?subject=' + subject + '&body=' + encodeURIComponent(body);
+        // Use same-tab navigation (user asked for same tab)
+        window.location.href = mailto;
+
+        // Also copy the body to clipboard as fallback
+        try{ await navigator.clipboard.writeText(body); }catch(e){}
+      });
+    })();
+  </script>
+</body>
+</html>
