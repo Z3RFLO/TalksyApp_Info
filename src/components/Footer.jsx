@@ -9,9 +9,9 @@ import { MdOutlineEmail } from 'react-icons/md';
 
 // Color tokens
 const tokens = {
-  bgDark: '#0F1115',
-  textLight: '#FFFFFF',
-  muted: '#9EA3AF',
+  bgDark: '#000000ff',
+  textLight: '#ffffffff',
+  muted: '#ffffffff',
   accent: '#7A5AF8',
   pillBg: '#111111'
 };
@@ -64,7 +64,7 @@ export default function Footer({ title = "Talksy" }) {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
-      opacity: 1,
+      opacity: 10,
       transition: {
         staggerChildren: 0.1,
         when: "beforeChildren",
@@ -88,7 +88,7 @@ export default function Footer({ title = "Talksy" }) {
     <footer 
       className="relative rounded-t-[60px] overflow-hidden"
       style={{
-        background: 'radial-gradient(circle at top left, #141313ff, #000000ff)',
+        background: 'radial-gradient(circle at top left, #2a2a2aff, #000000ff)',
         boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 0.05)'
       }}
     >
