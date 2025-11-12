@@ -40,32 +40,40 @@ function App() {
       <NavBar />
       <WaitlistModal />
       <main className="relative w-full">
+        {/* 1st - Hero */}
         <Hero />
+        
+        {/* 2nd - MeaningSection */}
         <div className="py-24">
           <MeaningSection />
         </div>
 
-        <div className="py-28">
-          <WhyChoose />
-        </div>
-
-        {/* How Talksy Works - inserted after WhyChoose */}
-        <div className="py-24">
-          <HowTalksyWorks />
-        </div>
-
-        <div className="py-24">
-          <DifferentSection />
-        </div>
-
+        {/* 3rd - FeatureGrid */}
         <div className="py-24">
           <FeatureGrid />
         </div>
 
+        {/* 4th - HowTalksyWorks */}
+        <div className="py-24">
+          <HowTalksyWorks />
+        </div>
+
+        {/* 5th - WhyChoose */}
+        <div className="py-28">
+          <WhyChoose />
+        </div>
+
+        {/* 6th - DifferentSection */}
+        <div className="py-24">
+          <DifferentSection />
+        </div>
+
+        {/* 7th - Showcase */}
         <div className="py-20">
           <Showcase />
         </div>
       </main>
+      {/* 8th - Footer */}
       <Footer />
       </div>
     </WaitlistModalProvider>

@@ -58,9 +58,9 @@ export default function NavBar() {
           >
             {[
               { href: '#features', text: 'Features' },
-              { href: '#mission', text: 'Mission' },
-              { href: '#why-us', text: 'Why Us?' },
-              { href: '#how-it-works', text: 'How it Works' }
+              { href: '#why-choose', text: 'Mission' },
+              { href: '#different', text: 'Why Us?' },
+              { href: '#how-talksy-works', text: 'How it Works' }
             ].map((link, index) => (
               <motion.a
                 key={index}

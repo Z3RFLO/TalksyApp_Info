@@ -147,11 +147,6 @@ app.use((err, req, res, next) => {
 // START SERVER
 // ============================================================================
 app.listen(PORT, () => {
-  console.log(`\n Talksy Waitlist Server is running!\n`);
-  console.log(` Server URL: http://localhost:${PORT}`);
-  console.log(` API Endpoint: http://localhost:${PORT}/api/waitlist`);
-  console.log(` Health Check: http://localhost:${PORT}/api/health`);
-  console.log(`\n Telegram Bot Token: ${BOT_TOKEN ? BOT_TOKEN.substring(0, 10) + '...' : 'NOT SET'}`);
-  console.log(` Telegram Chat ID: ${CHAT_ID || 'NOT SET'}`);
-  console.log(`\n Ready to receive waitlist signups!\n`);
+  // Minimal startup log to keep terminal output concise
+  console.log(`Talksy waitlist backend listening: http://localhost:${PORT} (POST /api/waitlist)`);
 });

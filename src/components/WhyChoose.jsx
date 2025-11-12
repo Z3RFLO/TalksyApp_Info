@@ -22,7 +22,7 @@ const cards = [
 
 export default function WhyChoose() {
   return (
-    <section className="py-24 relative overflow-hidden transition-colors duration-300 bg-gradient-to-b from-[var(--bg-gradient-start)] to-[var(--bg-gradient-end)]">
+    <section id="why-choose" className="py-24 relative overflow-hidden transition-colors duration-300 bg-gradient-to-b from-[var(--bg-gradient-start)] to-[var(--bg-gradient-end)]">
       {/* decorative blobs */}
       <div className="absolute -left-32 -top-20 w-[600px] h-[600px] bg-gradient-to-r from-purple-500/10 to-pink-500/10 opacity-20 filter blur-3xl rounded-full" />
       <div className="absolute right-0 top-1/4 w-[420px] h-[420px] bg-blue-500/6 opacity-15 filter blur-2xl rounded-full" />

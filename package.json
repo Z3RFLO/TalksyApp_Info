@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"npm --prefix ./backend run dev\" \"vite\"",
+    "dev": "concurrently --names \"backend,frontend\" --prefix name -c \"cyan,green\" \"npm --prefix ./backend run dev\" \"vite\"",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "backend-dev": "npm --prefix ./backend run dev",

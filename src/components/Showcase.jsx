@@ -29,7 +29,7 @@ export default function Showcase() {
           <p className="text-lg theme-text-secondary max-w-2xl mx-auto mb-8">We are still working on the app.</p>
             <div className="flex items-center justify-center gap-4">
             <button className="px-6 py-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold">Available Soon</button>
-            <a href="#" className="px-6 py-3 rounded-full border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}>Contact Sales</a>
+            <a href="mailto:talksyzz7o@gmail.com" className="px-6 py-3 rounded-full border" style={{ borderColor: 'var(--border-color)', color: 'var(--text-primary)' }}>Contact Sales</a>
           </div>
         </motion.div>
       </div>

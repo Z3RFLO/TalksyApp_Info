@@ -34,10 +34,10 @@ const footerLinks = {
 // Social media links
 const socialLinks = [
   { label: 'GitHub', href: 'https://github.com/talksy', icon: BsGithub },
-  { label: 'Twitter', href: 'https://twitter.com/talksy', icon: BsTwitterX },
-  { label: 'Discord', href: 'https://discord.gg/talksy', icon: BsDiscord },
-  { label: 'Instagram', href: 'https://instagram.com/talksy', icon: BsInstagram },
-  { label: 'Email', href: 'mailto:contact@talksy.com', icon: MdOutlineEmail }
+  { label: 'Twitter', href: 'https://twitter.com/talksyzz7o', icon: BsTwitterX },
+  { label: 'Discord', href: 'https://discord.gg', icon: BsDiscord },
+  { label: 'Instagram', href: 'https://www.instagram.com/talksy.in', icon: BsInstagram },
+  { label: 'Email', href: 'mailto:talksyzz7o@gmail.com', icon: MdOutlineEmail }
 ];
 
 // SVG Components
