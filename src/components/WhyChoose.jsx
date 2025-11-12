@@ -3,20 +3,20 @@ import { fadeInUp, stagger } from '../lib/motionVariants';
 
 const cards = [
   {
-    title: 'Privacy First',
-    bullets: ['End-to-end encryption', 'Anonymous profiles', 'Data protection', 'Secure voice calls']
+    title: 'Home Feed',
+    bullets: ['Post your thoughts instantly', 'Anyone can like, comment & reply', 'Join open discussions in real time', 'Every message sparks a new talk']
   },
   {
-    title: 'Quality Community',
-    bullets: ['24/7 moderation', 'Report system', 'Community guidelines', 'Verified profiles']
+    title: 'The Talksy Vibe',
+    bullets: ['Made for genuine people, not influencers', 'Every chat feels personal, not performative', 'Built for chill talks, real stories, and new friends', 'Feels like a late-night convo, but online']
   },
   {
     title: 'Real Connections',
-    bullets: ['Friendship focused', 'Deep conversations', 'Shared interests']
+    bullets: ['Friendship focused', 'Deep conversations', 'Shared interests' , 'Meaningful interactions']
   },
-  {
-    title: 'Inclusive Platform',
-    bullets: ['50+ languages', 'Cultural diversity', 'Accessibility features']
+ {
+    title: 'Quality Community',
+    bullets: ['24/7 moderation', 'Report system', 'Community guidelines', 'Verified profiles']
   }
 ];
 

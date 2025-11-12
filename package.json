@@ -4,9 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently \"npm --prefix ./backend run dev\" \"vite\"",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "backend-dev": "npm --prefix ./backend run dev",
+    "frontend-dev": "vite"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
@@ -16,7 +18,8 @@
     "postcss": "^8.4.27",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "concurrently": "^8.2.0"
   },
   "dependencies": {
     "framer-motion": "^10.15.0",

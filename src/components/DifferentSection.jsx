@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
 
 const features = [
-  { title: 'Real talks. Real people.', text: 'No chaos, no clout — just chill convos that actually mean something.' },
-  { title: 'Social got loud.', text: 'Talksy keeps it quiet — a cleaner space to connect, think, and breathe.' },
+  { title: 'Real talks. Real people.', text: 'No chaos, no clout, just chill convos that actually mean something.' },
+  { title: 'Social got loud.', text: 'Talksy keeps it quiet, a cleaner space to connect, think, and breathe.' },
   { title: 'Less scroll. More soul.', text: 'Every pixel is built for real connection, not comparison.' },
-  { title: 'Minimal. Gen-Z coded.', text: 'Like Discord met Calm — sleek, simple, and peaceful.' },
-  { title: 'Built for good vibes.', text: 'No noise, no pressure — just honest energy and real people.' }
+  { title: 'Minimal. Gen-Z coded.', text: 'Like Discord met Calm, sleek, simple, and peaceful.' },
+  { title: 'Built for good vibes.', text: 'No noise, no pressure, just honest energy and real people.' }
 ];
 
 const sectionVariants = {

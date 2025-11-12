@@ -8,6 +8,8 @@ import HowTalksyWorks from './components/HowTalksyWorks';
 import Showcase from './components/Showcase';
 import Footer from './components/Footer';
 import { useEffect, useState } from 'react';
+import WaitlistModal from './components/WaitlistModal';
+import { WaitlistModalProvider } from './contexts/WaitlistModalContext';
 
 function App() {
   const [scrollPct, setScrollPct] = useState(0);
@@ -30,11 +32,13 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-black">
+    <WaitlistModalProvider>
+      <div className="min-h-screen overflow-x-hidden bg-black">
       <div aria-hidden className="fixed top-0 left-0 right-0 h-1 z-[60]">
         <div className="h-1 bg-gradient-to-r from-[#00b4ff] to-[#0066ff] shadow-md" style={{ width: `${scrollPct}%`, height: 4 }} />
       </div>
       <NavBar />
+      <WaitlistModal />
       <main className="relative w-full">
         <Hero />
         <div className="py-24">
@@ -63,7 +67,8 @@ function App() {
         </div>
       </main>
       <Footer />
-    </div>
+      </div>
+    </WaitlistModalProvider>
   );
 }
 

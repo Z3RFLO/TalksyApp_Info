@@ -2,13 +2,19 @@ import { motion } from 'framer-motion';
 import { staggerCards } from '../lib/motionVariants';
 import FeatureCard from './FeatureCard';
 
+// icons for features
+import { BsChatDots } from 'react-icons/bs';
+import { FaSmile, FaUsers, FaFire } from 'react-icons/fa';
+import { GiSparkles } from 'react-icons/gi';
+import { MdOutlineAccessTime } from 'react-icons/md';
+
 const features = [
-  { title: 'Real-Time Chat', description: 'Live conversations in topic rooms' },
-  { title: 'Anonymous Vibes', description: 'Express yourself freely' },
-  { title: 'Group Energy', description: 'Vibe with like-minded people' },
-  { title: 'Icebreakers', description: 'Never run out of things to say' },
-  { title: 'TalkStreaks', description: 'Build your conversation momentum' },
-  { title: 'Mood Tags', description: 'Show your personality' }
+  { title: 'Real-Time Chat', description: 'Talk, react, and vibe instantly, in a real conversation, not a text thread', Icon: BsChatDots, colors: ['#6EE7B7', '#34D399'] },
+  { title: 'Your Vibes', description: 'Express yourself freely with moods, reactions, and real emotion.', Icon: FaSmile, colors: ['#FDE68A', '#FCA5A5'] },
+  { title: 'Group Energy', description: 'Vibe with like-minded people', Icon: FaUsers, colors: ['#C7B2FF', '#8B5CF6'] },
+  { title: 'Icebreakers', description: 'Never run out of things to say — Talksy helps you spark real conversations effortlessly.', Icon: GiSparkles, colors: ['#FBCFE8', '#F472B6'] },
+  { title: 'TalkStreaks', description: 'Build deeper connections through daily talk streaks that keep the energy alive.', Icon: FaFire, colors: ['#FFD580', '#FF7A59'] },
+  { title: 'Tempo', description: 'Show how you feel, match with the right vibes, and let conversations flow from emotion.', Icon: MdOutlineAccessTime, colors: ['#93C5FD', '#60A5FA'] }
 ];
 
 export default function FeatureGrid() {
@@ -45,7 +51,7 @@ export default function FeatureGrid() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {features.map((f, i) => (
-            <FeatureCard key={f.title} title={f.title} description={f.description} delay={i * 0.12} />
+            <FeatureCard key={f.title} title={f.title} description={f.description} delay={i * 0.12} Icon={f.Icon} colors={f.colors} />
           ))}
         </motion.div>
       </div>

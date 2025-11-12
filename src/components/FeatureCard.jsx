@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { slideInUp } from '../lib/motionVariants';
 import { useState } from 'react';
 
-export default function FeatureCard({ title, description, delay = 0 }) {
+export default function FeatureCard({ title, description, delay = 0, Icon = null, colors = ['#8B5CF6', '#FF6AD5'] }) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -20,8 +20,13 @@ export default function FeatureCard({ title, description, delay = 0 }) {
       {/* subtle bg */}
       <div className="absolute inset-0 rounded-2xl pointer-events-none" />
 
-      <div className="w-14 h-14 bg-gradient-to-r from-[#2f1b55] to-[#3b2b7a] rounded-xl flex items-center justify-center mb-6 relative z-10 shadow-md">
-      <div className="w-8 h-8 rounded-full bg-[rgba(255,255,255,0.06)] dark:bg-[rgba(10,10,12,0.6)] flex items-center justify-center theme-text-primary text-sm font-bold"> {title.charAt(0)} </div>
+      {/* Feature badge: render provided Icon with color pair */}
+      <div className="mb-6 relative z-10">
+        <div className={`w-14 h-14 rounded-full flex items-center justify-center shadow-md transition-transform duration-300 ${isHovered ? 'scale-105' : ''}`} style={{ background: `linear-gradient(135deg, ${colors[0]}33, ${colors[1]}22)` }}>
+          <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg" style={{ background: `linear-gradient(135deg, ${colors[0]}, ${colors[1]})` }}>
+            {Icon ? <Icon className="w-6 h-6" /> : title.split(' ').slice(0,2).map(w => w.charAt(0)).join('').toUpperCase()}
+          </div>
+        </div>
       </div>
 
   <h3 className={`card-title mb-2 ${isHovered ? 'theme-text-primary' : 'theme-text-primary/90'}`}>{title}</h3>

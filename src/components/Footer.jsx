@@ -1,11 +1,7 @@
-/**
- * Footer component - Zen-inspired design
- * Tested: desktop 1440px / tablet 768px / mobile 375px
- */
-
 import { motion, AnimatePresence } from 'framer-motion';
 import { BsDiscord, BsTwitterX, BsInstagram, BsGithub } from 'react-icons/bs';
 import { MdOutlineEmail } from 'react-icons/md';
+import { useWaitlistModal } from '../contexts/WaitlistModalContext';
 
 // Color tokens
 const tokens = {
@@ -100,61 +96,61 @@ export default function Footer({ title = "Talksy" }) {
           viewport={{ once: true }}
           className="container mx-auto px-6 pt-20 pb-12"
         >
-          {/* Main grid layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
-            {/* Left column */}
+          {/* Main grid layout - responsive columns */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 lg:gap-8">
+            {/* Left column - Logo and CTA */}
             <motion.div variants={childVariants} className="lg:col-span-5">
-              <h2 className="font-extrabold text-[clamp(28px,5vw,48px)] text-[#0F1720] leading-tight mb-6">
+              <h2 className="font-extrabold text-[clamp(28px,5vw,48px)] text-white leading-tight mb-6">
                 {title}
               </h2>
-              <p className="text-base lg:text-lg text-[#4B4B4B] mb-8 max-w-md">
+              <p className="text-sm sm:text-base lg:text-lg text-white/80 mb-8 max-w-md">
                 Connect, share, and build relationships in a beautiful, privacy-focused space.
               </p>
               
               {/* Primary CTA */}
-              <motion.a
-                href="/waitlist.html"
-                className="inline-flex items-center px-8 py-3 rounded-full bg-gradient-to-r from-[#7A5AF8] to-[#6A48F0] text-white font-medium shadow-lg hover:scale-[1.03] transition-transform"
+              <motion.button
+                onClick={() => { if (typeof window !== 'undefined') { const evt = new CustomEvent('open-waitlist'); window.dispatchEvent(evt); } }}
+                className="inline-flex items-center px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-[#7A5AF8] to-[#6A48F0] text-white font-medium text-sm sm:text-base shadow-lg hover:scale-[1.03] transition-transform cursor-pointer"
                 whileHover={{ scale: 1.03 }}
                 aria-label="Join Waitlist"
               >
                 Join Waitlist →
-              </motion.a>
+              </motion.button>
 
               {/* Social icons */}
-              <div className="mt-12 flex gap-4">
+              <div className="mt-8 sm:mt-12 flex gap-3 sm:gap-4">
                 {socialLinks.map((social) => (
                   <motion.a
                     key={social.label}
                     href={social.href}
-                    className="w-10 h-10 flex items-center justify-center rounded-full bg-[#EAE6DA] text-[#111111] hover:bg-gradient-to-r from-[#7A5AF8] to-[#6A48F0] hover:text-white transition-all"
+                    className="w-9 sm:w-10 h-9 sm:h-10 flex items-center justify-center rounded-full bg-[#EAE6DA] text-[#111111] hover:bg-gradient-to-r from-[#7A5AF8] to-[#6A48F0] hover:text-white transition-all"
                     whileHover={{ y: -2 }}
                     aria-label={`Follow us on ${social.label}`}
                   >
-                    <social.icon className="w-5 h-5" />
+                    <social.icon className="w-4 sm:w-5 h-4 sm:h-5" />
                   </motion.a>
                 ))}
               </div>
 
               {/* Made with love */}
-              <p className="mt-12 text-sm text-[#4B4B4B]">
-                Made with <span aria-label="love">♥</span> by the Talksy Team
+              <p className="mt-8 sm:mt-12 text-xs sm:text-sm text-white/60">
+                Made with <span aria-label="love" className="text-pink-500">♥</span> by the Talksy Team
               </p>
             </motion.div>
 
-            {/* Right columns */}
-            <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Right columns - Navigation Links - Stacked on mobile, 3-column on desktop */}
+            <div className="lg:col-span-7 grid grid-cols-3 md:grid-cols-3 gap-6 sm:gap-8">
               {Object.entries(footerLinks).map(([key, links]) => (
                 <motion.div key={key} variants={childVariants}>
-                  <h3 className="text-lg font-semibold text-[#0F1720] mb-6">
+                  <h3 className="text-xs sm:text-sm md:text-lg font-semibold text-white mb-4 sm:mb-6">
                     {key.replace(/([A-Z])/g, ' $1').trim()}
                   </h3>
-                  <ul className="space-y-4">
+                  <ul className="space-y-2 sm:space-y-4">
                     {links.map((link) => (
                       <li key={link.label}>
                         <motion.a
                           href={link.href}
-                          className="text-[#4B4B4B] hover:text-[#7A5AF8] transition-colors"
+                          className="text-white/70 hover:text-white transition-colors text-xs sm:text-sm"
                           whileHover={{ y: -2 }}
                         >
                           {link.label}
@@ -170,7 +166,7 @@ export default function Footer({ title = "Talksy" }) {
           {/* Bottom bar */}
           <motion.div 
             variants={childVariants}
-            className="mt-20 pt-8 border-t border-[#11111133] text-center text-sm text-[#4B4B4B]"
+            className="mt-12 sm:mt-16 md:mt-20 pt-6 sm:pt-8 border-t border-white/10 text-center text-xs sm:text-sm text-white/60"
           >
             © {new Date().getFullYear()} Talksy. All rights reserved.
           </motion.div>

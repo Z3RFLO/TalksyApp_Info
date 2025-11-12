@@ -5,147 +5,248 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Talksy — Join Waitlist</title>
   <link rel="stylesheet" href="/src/index.css" />
+
   <style>
-    body { font-family: 'Poppins', 'Inter', system-ui, sans-serif; background: #06060a; color: #fff; }
-    .container { max-width: 720px; margin: 48px auto; padding: 24px; }
-    .card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 28px; }
-    label { display:block; margin-bottom:8px; font-weight:600; }
-    input { width:100%; padding:12px 14px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.01); color: #fff; }
-    .muted { color: rgba(255,255,255,0.65); font-size:0.95rem; }
-    .row { margin-bottom:16px; }
-    .btn { display:inline-block; padding:12px 18px; border-radius:999px; background: linear-gradient(90deg,#7FA0FF,#9A7BFF); color:#fff; font-weight:700; text-decoration:none; }
-    .help { font-size:0.9rem; color: rgba(255,255,255,0.6); margin-top:8px }
-    .success { color: #9ff5d0; }
-    .error { color: #ff9aa2; }
+    body { 
+      font-family: 'Poppins', 'Inter', system-ui, sans-serif; 
+      background: #000000; 
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      margin: 0;
+      background-image:
+        radial-gradient(circle at 20% 10%, rgba(255,255,255,0.06) 0px, transparent 600px),
+        radial-gradient(circle at 80% 85%, rgba(255,255,255,0.04) 0px, transparent 700px);
+    }
+
+    .container { 
+      max-width: 720px; 
+      margin: 48px auto; 
+      padding: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card { 
+      background: rgba(255,255,255,0.045);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 32px;
+      padding: 48px;
+      box-shadow: 0 0 110px rgba(0,0,0,0.85),
+                  inset 0 0 0 0.7px rgba(255,255,255,0.13);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle, rgba(255,255,255,0.12), transparent 60%);
+      opacity: 0.07;
+      animation: slowmove 16s linear infinite;
+    }
+
+    @keyframes slowmove {
+      0% { transform: translate(0px,0px) rotate(0deg); }
+      100%{ transform: translate(50px,40px) rotate(360deg); }
+    }
+
+    label { 
+      display: block; 
+      margin-bottom: 10px; 
+      font-weight: 500;
+      color: rgba(255,255,255,0.92);
+      font-size: 0.98rem;
+    }
+
+    input { 
+      width: 100%;
+      padding: 18px 20px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.045);
+      color: #fff;
+      font-size: 1rem;
+      transition: all 0.25s ease;
+    }
+    input:focus {
+      outline: none;
+      border-color: rgba(255,255,255,0.45);
+      box-shadow: 0 0 0 6px rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.075);
+    }
+    input::placeholder {
+      color: rgba(255,255,255,0.35);
+    }
+
+    .muted { 
+      color: rgba(255,255,255,0.75);
+      font-size: 1.02rem;
+      line-height: 1.55;
+    }
+
+    .row { 
+      margin-bottom: 26px;
+    }
+
+    .btn { 
+      display: inline-flex;
+      align-items: center;
+      padding: 17px 36px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.85), rgba(255,255,255,0.65));
+      color: #000;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 1.02rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 10px 40px rgba(255,255,255,0.18);
+    }
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .help { 
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.55);
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    .success { 
+      color: #caffe0;
+      font-weight: 500;
+    }
+    .error { 
+      color: #ffb5b9;
+      font-weight: 500;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <h1 style="font-size:32px;margin:0 0 8px">Join the Talksy Waitlist</h1>
-      <p class="muted">Enter your details below. We'll reach out when we have early access or updates.</p>
 
-  <form id="waitlist-form" onsubmit="return false;" novalidate>
-        <div class="row">
-          <label for="name">Full name</label>
-          <input id="name" name="name" type="text" placeholder="Your name" required />
-        </div>
+<div class="container">
+  <div class="card">
+    <h1 style="font-size:clamp(28px,5vw,42px);margin:0 0 12px;font-weight:800;background:linear-gradient(135deg,#fff,#e0e7ff);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.02em;">Join the Talksy Waitlist</h1>
+    <p class="muted" style="font-size:1.1rem;max-width:540px;">Enter your details below. We'll reach out when we have early access or updates.</p>
 
-        <div class="row">
-          <label for="email">Email address</label>
-          <input id="email" name="email" type="email" placeholder="you@example.com" required />
-        </div>
+    <form id="waitlist-form" style="margin-top:32px;" onsubmit="return false;" novalidate>
+      <div class="row">
+        <label for="name">Full name</label>
+        <input id="name" name="name" type="text" placeholder="Your name" required />
+      </div>
 
-        <div class="row">
-          <label for="phone">Phone (optional)</label>
-          <input id="phone" name="phone" type="tel" placeholder="+1 555 555 5555" />
-        </div>
+      <div class="row">
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" required />
+      </div>
 
-        <div class="row">
-          <label for="notes">Notes (optional)</label>
-          <input id="notes" name="notes" type="text" placeholder="How did you hear about Talksy?" />
-        </div>
+      <div class="row">
+        <label for="phone">Phone (optional)</label>
+        <input id="phone" name="phone" type="tel" placeholder="+1 555 555 5555" />
+      </div>
 
-        <div class="row" style="display:flex;gap:12px;align-items:center">
-          <button id="submit-btn" class="btn" type="button">Send to Talksy</button>
-          <div id="status" class="muted"></div>
-        </div>
+      <div class="row">
+        <label for="notes">Notes (optional)</label>
+        <input id="notes" name="notes" type="text" placeholder="How did you hear about Talksy?" />
+      </div>
 
-        <p class="help">On submit we'll open your email client with the details pre-filled to <strong>talksyzz7o@gmail.com</strong>. This is a simple privacy-friendly way to collect waitlist entries without a backend. If mail client doesn't open, copy the generated message and email it manually.</p>
-      </form>
+      <div class="row" style="display:flex;gap:12px;align-items:center">
+        <button id="submit-btn" class="btn" type="button">Send to Talksy</button>
+        <div id="status" class="muted"></div>
+      </div>
 
-      <hr style="border:none;border-top:1px solid rgba(255,255,255,0.04);margin:18px 0" />
-      <p class="muted" style="font-size:0.9rem">By joining, you agree to receive occasional updates about Talksy. Phone number is optional and used for SMS updates only if provided.</p>
-    </div>
+      <p class="help">On submit we'll open your email client with the details pre-filled to <strong>talksyzz7o@gmail.com</strong>. This is a simple privacy-friendly way to collect waitlist entries without a backend. If mail client doesn't open, copy the generated message and email it manually.</p>
+    </form>
+
+    <hr style="border:none;border-top:1px solid rgba(255,255,255,0.04);margin:18px 0" />
+    <p class="muted" style="font-size:0.9rem">By joining, you agree to receive occasional updates about Talksy. Phone number is optional and used for SMS updates only if provided.</p>
   </div>
+</div>
 
-      <script>
-    (function(){
-      const form = document.getElementById('waitlist-form');
-      const submit = document.getElementById('submit-btn');
-      const status = document.getElementById('status');
+<script>
+(function(){
+  const form = document.getElementById('waitlist-form');
+  const submit = document.getElementById('submit-btn');
+  const status = document.getElementById('status');
+  
+  // =====================================================================
+  // EDIT THIS ENDPOINT IF BACKEND IS DEPLOYED ELSEWHERE
+  // Default: http://localhost:5000/api/waitlist (local development)
+  // Production: https://your-deployed-backend.com/api/waitlist
+  // =====================================================================
+  const BACKEND_ENDPOINT = 'http://localhost:5000/api/waitlist';
 
-      // CONFIG: set your serverless/form endpoint here.
-      // Examples:
-      // - Formspree: https://formspree.io/f/{formId}
-      // - Netlify Functions or server endpoint: https://example.com/.netlify/functions/waitlist
-      // If left as an empty string, the page will fallback to opening the user's mail client.
-      const ENDPOINT = '';
+  function validateEmail(email){
+    return /\S+@\S+\.\S+/.test(email);
+  }
 
-      function validateEmail(email){
-        return /\S+@\S+\.\S+/.test(email);
-      }
-
-      async function submitToEndpoint(data){
-        try{
-          const res = await fetch(ENDPOINT, {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-          });
-          return res.ok;
-        }catch(e){
-          return false;
-        }
-      }
-
-      function buildBody(data){
-        return [
-          'Waitlist Signup',
-          '',
-          'Name: ' + data.name,
-          'Email: ' + data.email,
-          'Phone: ' + (data.phone || '(not provided)'),
-          'Notes: ' + (data.notes || '(none)'),
-          '',
-          'Submitted from Talksy waitlist page.'
-        ].join('\n');
-      }
-
-      submit.addEventListener('click', async function(e){
-        e.preventDefault();
-        status.textContent = '';
-        status.className = 'muted';
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const phone = document.getElementById('phone').value.trim();
-        const notes = document.getElementById('notes').value.trim();
-
-        if(!name){ status.textContent = 'Please enter your name.'; status.className='error'; return; }
-        if(!email || !validateEmail(email)){ status.textContent = 'Please enter a valid email.'; status.className='error'; return; }
-
-        const payload = { name, email, phone, notes, source: 'waitlist-page' };
-
-        // If an ENDPOINT is configured, try to POST to it first.
-        if(ENDPOINT && ENDPOINT.startsWith('http')){
-          status.textContent = 'Sending...';
-          const ok = await submitToEndpoint(payload);
-          if(ok){
-            status.textContent = 'Thanks — your spot is saved. We will contact you soon.';
-            status.className = 'success';
-            // Optionally clear form
-            form.reset();
-            return;
-          } else {
-            status.textContent = 'Submission failed — falling back to opening your mail client.';
-            status.className = 'error';
-          }
-        }
-
-        // Fallback: compose mailto in same tab (user requested same-tab behaviour)
-        const body = buildBody(payload);
-        const subject = encodeURIComponent('Talksy Waitlist Signup');
-        const mailto = 'mailto:talksyzz7o@gmail.com?subject=' + subject + '&body=' + encodeURIComponent(body);
-        // Use same-tab navigation (user asked for same tab)
-        window.location.href = mailto;
-
-        // Also copy the body to clipboard as fallback
-        try{ await navigator.clipboard.writeText(body); }catch(e){}
+  async function submitToBackend(data){
+    try{
+      const res = await fetch(BACKEND_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
       });
-    })();
-  </script>
+      const responseData = await res.json();
+      return responseData;
+    }catch(e){
+      console.error('Backend request error:', e);
+      return { success: false, message: 'Network error - backend may be offline' };
+    }
+  }
+
+  submit.addEventListener('click', async function(e){
+    e.preventDefault();
+    status.textContent = '';
+    status.className = 'muted';
+    
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+
+    // Validate inputs
+    if(!name){ 
+      status.textContent = 'Please enter your name.'; 
+      status.className = 'error'; 
+      return; 
+    }
+    if(!email || !validateEmail(email)){ 
+      status.textContent = 'Please enter a valid email.'; 
+      status.className = 'error'; 
+      return; 
+    }
+
+    // Send to backend
+    status.textContent = 'Sending...';
+    const payload = { name, email, phone };
+    const response = await submitToBackend(payload);
+
+    if(response.success){
+      status.textContent = ' Thanks! You\'re on the waitlist. We\'ll reach out soon.';
+      status.className = 'success';
+      form.reset();
+    } else {
+      status.textContent = ' ' + (response.message || 'Submission failed. Please try again.');
+      status.className = 'error';
+    }
+  });
+})();
+</script>
+
 </body>
 </html>

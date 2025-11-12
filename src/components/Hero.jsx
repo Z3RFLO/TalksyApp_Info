@@ -3,16 +3,18 @@ import { fadeInUp, stagger } from '../lib/motionVariants';
 import { useEffect, useState } from 'react';
 import { BsDiscord, BsTwitterX, BsInstagram } from 'react-icons/bs';
 
+import { useWaitlistModal } from '../contexts/WaitlistModalContext';
+
 function NumberBox({ value, label, delay = 0 }) {
   return (
     <motion.div
-      className="number-box text-center px-6 py-4 bg-[#0F1115] rounded-2xl backdrop-blur-sm"
+      className="number-box text-center px-4 sm:px-6 py-3 sm:py-4 bg-[#0F1115] rounded-xl sm:rounded-2xl backdrop-blur-sm"
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.05 }}
       transition={{ delay, duration: 0.45, ease: 'easeOut' }}
     >
-      <div className="number-value relative overflow-hidden text-white text-4xl font-bold" style={{ height: 48 }}>
+      <div className="number-value relative overflow-hidden text-white text-2xl sm:text-3xl md:text-4xl font-bold" style={{ height: 'auto' }}>
         <AnimatePresence mode="wait">
           <motion.div
             key={value}
@@ -26,7 +28,7 @@ function NumberBox({ value, label, delay = 0 }) {
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className="number-label mt-2 uppercase tracking-wider text-[#9EA3AF] text-sm font-medium">{label}</div>
+      <div className="number-label mt-1 sm:mt-2 uppercase tracking-wider text-[#9EA3AF] text-xs sm:text-sm font-medium">{label}</div>
     </motion.div>
   );
 }
@@ -35,6 +37,8 @@ export default function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [timeLeft, setTimeLeft] = useState({ days: '--', hours: '--', minutes: '--', seconds: '--' });
   const [isHoveringHero, setIsHoveringHero] = useState(false);
+
+  const { openModal } = useWaitlistModal();
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -138,54 +142,54 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          <motion.h1
-            className="text-center mt-12 leading-tight"
-            initial={{ opacity: 0, y: 65 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-          >
-            <div className="block">
-              <motion.span
-                className="hero-title-primary font-bold tracking-tight"
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                Welcome
-              </motion.span>
-            </div>
+<motion.h1
+  className="text-center mt-12 leading-[clamp(5rem,5vw,4rem)]"
+  initial={{ opacity: 0, y: 65 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8, ease: 'easeOut' }}
+>
+  <div className="block">
+    <motion.span
+      className="hero-title-primary font-bold tracking-tight text-[clamp(5rem,10vw,12rem)]"
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      Welcome
+    </motion.span>
+  </div>
 
-            <div className="block mt-8">
-              <motion.span
-                className="hero-title-accent inline-block font-extrabold glow-strong"
-                animate={
-                  isHoveringHero
-                    ? { backgroundPosition: '100% 50%', scale: 1.06 }
-                    : { backgroundPosition: '0% 50%', scale: 1.2 }
-                }
-                transition={{ duration: 0.45 }}
-                onMouseEnter={() => setIsHoveringHero(true)}
-                onMouseLeave={() => setIsHoveringHero(false)}
-              >
-                <span
-                  className="animated-gradient-text inline-block bg-clip-text text-transparent"
-                  style={{
-                    backgroundImage: 'linear-gradient(90deg, #ff6ad5, #8b64c1, #5fcbff)',
-                    backgroundSize: '200% auto',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    display: 'inline-block',
-                  }}
-                >
-                  To Talksy
-                </span>
-              </motion.span>
-            </div>
-          </motion.h1>
+  <div className="block mt-4 sm:mt-6 md:mt-8">
+    <motion.span
+      className="hero-title-accent inline-block font-extrabold glow-strong text-[clamp(3rem,10vw,8rem)]"
+      animate={
+        isHoveringHero
+          ? { backgroundPosition: '100% 50%', scale: 1.06 }
+          : { backgroundPosition: '0% 50%', scale: 1.2 }
+      }
+      transition={{ duration: 0.45 }}
+      onMouseEnter={() => setIsHoveringHero(true)}
+      onMouseLeave={() => setIsHoveringHero(false)}
+    >
+      <span
+        className="animated-gradient-text inline-block bg-clip-text text-transparent"
+        style={{
+          backgroundImage: 'linear-gradient(90deg, #ff6ad5, #8b64c1, #5fcbff)',
+          backgroundSize: '200% auto',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          display: 'inline-block',
+        }}
+      >
+        To Talksy
+      </span>
+    </motion.span>
+  </div>
+</motion.h1>
 
           <motion.p 
             variants={fadeInUp} 
-            className="mt-8 text-xl theme-text-secondary max-w-3xl mx-auto text-center leading-relaxed"
+            className="mt-6 sm:mt-8 text-base sm:text-lg md:text-xl theme-text-secondary max-w-3xl mx-auto text-center leading-relaxed px-2"
           >
             where conversations flow naturally, connections feel real, and every chat matters
           </motion.p>
@@ -204,7 +208,7 @@ export default function Hero() {
           {/* Countdown Timer */}
           <motion.div
             variants={fadeInUp}
-            className="mt-8 flex justify-center gap-6 flex-wrap"
+            className="mt-6 sm:mt-8 flex justify-center gap-3 sm:gap-4 md:gap-6 flex-wrap"
             transition={{ delay: 1.2 }}
           >
             {[
@@ -220,11 +224,11 @@ export default function Hero() {
           {/* CTA Button */}
           <motion.div 
             variants={fadeInUp} 
-            className="mt-12 flex justify-center"
+            className="mt-8 sm:mt-10 md:mt-12 flex justify-center"
           >
-            <motion.a 
-              href="/waitlist.html"
-              className="bg-gradient-to-r from-[#E555FF] to-[#9747FF] px-10 py-4 rounded-full text-white font-bold text-lg relative overflow-hidden group flex items-center gap-3 shadow-2xl"
+              <motion.button 
+                onClick={openModal}
+              className="bg-gradient-to-r from-[#E555FF] to-[#9747FF] px-6 sm:px-8 md:px-10 py-3 sm:py-4 rounded-full text-white font-bold text-base sm:text-lg relative overflow-hidden group flex items-center gap-2 sm:gap-3 shadow-2xl"
               whileHover={{ scale: 1.04, boxShadow: '0 20px 60px rgba(143,94,207,0.18)' }}
               whileTap={{ scale: 0.97 }}
             >
@@ -242,13 +246,13 @@ export default function Hero() {
               >
                 →
               </motion.span>
-            </motion.a>
+              </motion.button>
           </motion.div>
 
           {/* Enhanced Social Media Icons with premium glow effects */}
           <motion.div 
             variants={fadeInUp} 
-            className="mt-8 flex justify-center gap-6"
+            className="mt-6 sm:mt-8 flex justify-center gap-3 sm:gap-4 md:gap-6"
           >
             {/* Instagram */}
             <motion.a

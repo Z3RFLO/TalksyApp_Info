@@ -2,35 +2,28 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { fadeIn } from '../lib/motionVariants';
 import { useState, useEffect, useRef } from 'react';
 
+import { useWaitlistModal } from '../contexts/WaitlistModalContext';
+
 export default function NavBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showCenterLinks, setShowCenterLinks] = useState(true);
+  const [showMobileButton, setShowMobileButton] = useState(true);
   const lastScrollY = useRef(typeof window !== 'undefined' ? window.scrollY : 0);
-  // Theme state (was missing and caused runtime ReferenceError)
-  const [theme, setTheme] = useState(() => (typeof document !== 'undefined' && document.documentElement.classList.contains('light')) ? 'light' : 'dark');
-
-  useEffect(() => {
-    // Ensure document has theme class to match state
-    if (typeof document !== 'undefined') {
-      if (theme === 'light') {
-        document.documentElement.classList.add('light');
-        document.documentElement.classList.remove('dark');
-      } else {
-        document.documentElement.classList.add('dark');
-        document.documentElement.classList.remove('light');
-      }
-    }
-  }, [theme]);
-
-  const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  const { openModal } = useWaitlistModal();
 
   useEffect(() => {
     function onScroll() {
       const current = window.scrollY;
       const diff = current - lastScrollY.current;
       // scroll down -> hide, scroll up -> show (threshold 8px)
-      if (diff > 8) setShowCenterLinks(false);
-      else if (diff < -8) setShowCenterLinks(true);
+      if (diff > 8) {
+        setShowCenterLinks(false);
+        setShowMobileButton(false);
+      }
+      else if (diff < -8) {
+        setShowCenterLinks(true);
+        setShowMobileButton(true);
+      }
       lastScrollY.current = current;
     }
 
@@ -89,74 +82,18 @@ export default function NavBar() {
           </motion.div>
 
           {/* Enhanced CTA Button */}
-          <motion.div variants={fadeIn} className="flex items-center gap-4">
-            {/* Enhanced theme toggle */}
-            <motion.button 
-              onClick={toggleTheme}
-              className="relative w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500/10 to-cyan-500/10 backdrop-blur-md border flex items-center justify-center overflow-hidden group"
-              style={{ borderColor: 'var(--border-color)' }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="Toggle theme"
-            >
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-tr from-purple-500/20 via-cyan-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{
-                  filter: 'blur(10px)',
-                }}
-              />
-              
-              <motion.div
-                className="relative z-10 text-2xl"
-                initial={false}
-                animate={theme === 'light' ? {
-                  rotate: 0,
-                  scale: 1
-                } : {
-                  rotate: -180,
-                  scale: 0.75
-                }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-              >
-                {theme === 'light' ? (
-                  <motion.svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6 text-yellow-300"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <circle cx="12" cy="12" r="4" className="fill-yellow-300" />
-                    <path
-                      strokeLinecap="round"
-                      strokeWidth="2"
-                      d="M12 3v1m0 16v1m-9-9h1m16 0h1m-1.293-7.293l-.707.707m-12.728 0l-.707-.707m.707 12.728l-.707.707m12.728 0l.707-.707"
-                    />
-                  </motion.svg>
-                ) : (
-                  <motion.svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6 text-purple-300"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeWidth="2"
-                      d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                    />
-                  </motion.svg>
-                )}
-              </motion.div>
-              
-              <motion.div className="absolute inset-0 rounded-xl" style={{ boxShadow: '0 0 20px rgba(147, 51, 234, 0.18)' }} />
-            </motion.button>
+          <motion.div 
+            variants={fadeIn} 
+            className="flex items-center gap-4"
+            initial={false}
+            animate={showMobileButton ? { opacity: 1, y: 0 } : { opacity: 0, y: -10 }}
+            transition={{ duration: 0.28, ease: 'easeOut' }}
+          >
             
-            {/* Join button */}
-            <motion.a 
-              href="/waitlist.html"
-              className="bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-2 rounded-full text-white font-semibold relative overflow-hidden flex items-center gap-2"
+            {/* Join button - always visible on desktop, hidden on mobile when scrolling down */}
+              <motion.button 
+                onClick={openModal}
+                className="hidden md:inline-flex bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-2 rounded-full text-white font-semibold relative overflow-hidden flex items-center gap-2 cursor-pointer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -174,26 +111,36 @@ export default function NavBar() {
                 whileHover={{ x: '100%' }}
                 transition={{ duration: 0.6 }}
               />
-            </motion.a>
+              </motion.button>
+
+              {/* Mobile Join button - hides on scroll down */}
+              <motion.button 
+                onClick={openModal}
+                className="md:hidden bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-2 rounded-full text-white font-semibold relative overflow-hidden flex items-center gap-2 cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <motion.span className="relative z-10">Join Waitlist</motion.span>
+              <motion.span
+                className="relative z-10"
+                animate={{ x: [0, 3, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                →
+              </motion.span>
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                initial={{ x: '-100%' }}
+                whileHover={{ x: '100%' }}
+                transition={{ duration: 0.6 }}
+              />
+              </motion.button>
           </motion.div>
 
-          {/* Mobile Menu Button */}
-          <motion.div 
-            variants={fadeIn}
-            className="md:hidden"
-          >
-            <button 
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 theme-text-primary"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </motion.div>
+          {/* Mobile Menu - Hidden, not showing hamburger */}
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Hidden, not showing hamburger */}
         <AnimatePresence>
             {isMobileMenuOpen && (
             <motion.div
@@ -246,7 +193,13 @@ export default function NavBar() {
                   How it Works
                 </a>
                 <div className="px-4 pt-4">
-                  <button className="bg-gradient-to-r from-purple-500 to-pink-500 w-full px-6 py-2 rounded-full text-white font-semibold">
+                    <button 
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        openModal();
+                      }}
+                      className="bg-gradient-to-r from-purple-500 to-pink-500 w-full px-6 py-2 rounded-full text-white font-semibold cursor-pointer"
+                    >
                     Join
                   </button>
                 </div>
