@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { useWaitlistModal } from '../contexts/WaitlistModalContext';
+import { submitWaitlist } from '../lib/waitlistClient';
 
 export default function WaitlistModal() {
   const { isOpen, closeModal } = useWaitlistModal();
@@ -16,8 +17,8 @@ export default function WaitlistModal() {
     type: '' // 'success' or 'error'
   });
 
-  // Edit this URL if backend is deployed elsewhere
-  const BACKEND_URL = 'http://localhost:5000/api/waitlist';
+  // The serverless endpoint (relative path works both locally and in production)
+  // We use the helper `submitWaitlist` from `src/lib/waitlistClient.js`.
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,19 +51,11 @@ export default function WaitlistModal() {
         return;
       }
 
-      const response = await fetch(BACKEND_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          phone: formData.phone.trim()
-        })
+      const data = await submitWaitlist({
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim()
       });
-
-      const data = await response.json();
 
       if (data.success) {
         setStatus({
@@ -79,7 +72,7 @@ export default function WaitlistModal() {
       } else {
         setStatus({
           loading: false,
-          message: `❌ ${data.message || 'Submission failed'}`,
+          message: `❌ ${data.error || data.message || 'Submission failed'}`,
           type: 'error'
         });
       }

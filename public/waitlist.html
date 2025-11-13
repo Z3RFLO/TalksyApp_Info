@@ -183,10 +183,10 @@
   
   // =====================================================================
   // EDIT THIS ENDPOINT IF BACKEND IS DEPLOYED ELSEWHERE
-  // Default: http://localhost:5000/api/waitlist (local development)
-  // Production: https://your-deployed-backend.com/api/waitlist
+  // Default: relative path to the serverless endpoint
+  // Production: this will resolve to https://<your-vercel-domain>/api/waitlist
   // =====================================================================
-  const BACKEND_ENDPOINT = 'http://localhost:5000/api/waitlist';
+  const BACKEND_ENDPOINT = '/api/waitlist';
 
   function validateEmail(email){
     return /\S+@\S+\.\S+/.test(email);

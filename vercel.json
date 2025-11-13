@@ -3,11 +3,5 @@
   "outputDirectory": "dist",
   "env": {
     "NODE_ENV": "production"
-  },
-  "functions": {
-    "backend/index.js": {
-      "memory": 1024,
-      "maxDuration": 60
-    }
   }
 }

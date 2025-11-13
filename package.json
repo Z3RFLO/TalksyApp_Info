@@ -7,9 +7,9 @@
     "node": "18.x"
   },
   "scripts": {
-    "dev": "concurrently --names \"frontend,backend\" --prefix name -c \"blue,cyan\" \"vite\" \"npm --prefix ./backend run dev\" --kill-others-on-exit",
-    "build": "tsc && vite build && npm --prefix ./backend install",
-    "start": "npm --prefix ./backend run dev",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "start": "vite preview --port 5000",
     "preview": "vite preview"
   },
   "devDependencies": {
