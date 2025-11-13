@@ -3,12 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
-    "dev": "concurrently --names \"backend,frontend\" --prefix name -c \"cyan,green\" \"npm --prefix ./backend run dev\" \"vite\"",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "backend-dev": "npm --prefix ./backend run dev",
-    "frontend-dev": "vite"
+    "dev": "concurrently --names \"frontend,backend\" --prefix name -c \"blue,cyan\" \"vite\" \"npm --prefix ./backend run dev\" --kill-others-on-exit",
+    "build": "tsc && vite build && npm --prefix ./backend install",
+    "start": "npm --prefix ./backend run dev",
+    "preview": "vite preview"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

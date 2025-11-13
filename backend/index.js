@@ -1,10 +1,14 @@
 import express from 'express';
 import axios from 'axios';
-import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 // Load environment variables from .env file
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -14,9 +18,12 @@ const CHAT_ID = process.env.CHAT_ID;
 // ============================================================================
 // MIDDLEWARE
 // ============================================================================
-app.use(cors()); // Enable CORS for all routes
 app.use(express.json()); // Parse JSON request bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+
+// Serve static files from the frontend dist folder
+const distPath = path.join(__dirname, '..', 'dist');
+app.use(express.static(distPath));
 
 // ============================================================================
 // HEALTH CHECK ROUTE
@@ -28,18 +35,16 @@ app.get('/api/health', (req, res) => {
 // ============================================================================
 // WAITLIST SUBMISSION ROUTE
 // ============================================================================
-
-
 function formatTelegramMessage(data) {
   // Customize the message format sent to Telegram
   return `
- <b>New Waitlist Signup!</b>
+📝 <b>New Waitlist Signup!</b>
 
- <b>Name:</b> ${data.name}
- <b>Email:</b> ${data.email}
- <b>Phone:</b> ${data.phone || 'Not provided'}
+👤 <b>Name:</b> ${data.name}
+📧 <b>Email:</b> ${data.email}
+📞 <b>Phone:</b> ${data.phone || 'Not provided'}
 
- <b>Submitted:</b> ${new Date().toLocaleString()}
+⏰ <b>Submitted:</b> ${new Date().toLocaleString()}
   `.trim();
 }
 
@@ -144,9 +149,17 @@ app.use((err, req, res, next) => {
 });
 
 // ============================================================================
+// SPA FALLBACK: Route all non-API requests to index.html for React Router
+// ============================================================================
+app.get('*', (req, res) => {
+  res.sendFile(path.join(distPath, 'index.html'));
+});
+
+// ============================================================================
 // START SERVER
 // ============================================================================
 app.listen(PORT, () => {
-  // Minimal startup log to keep terminal output concise
-  console.log(`Talksy waitlist backend listening: http://localhost:${PORT} (POST /api/waitlist)`);
+  console.log(`Talksy server running: http://localhost:${PORT}`);
+  console.log(`  API: POST http://localhost:${PORT}/api/waitlist`);
+  console.log(`  Frontend served from: ${distPath}`);
 });

@@ -8,13 +8,18 @@
     "start": "node index.js",
     "dev": "node index.js"
   },
-  "keywords": ["waitlist", "telegram", "express"],
+  "keywords": [
+    "waitlist",
+    "telegram",
+    "express"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2",
     "axios": "^1.6.2",
     "cors": "^2.8.5",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "talksy-info": "file:.."
   }
 }
