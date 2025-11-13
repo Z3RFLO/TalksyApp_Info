@@ -78,9 +78,10 @@ export default function WaitlistModal() {
       }
     } catch (error) {
       console.error('Submission error:', error);
+      const msg = error && error.message ? error.message : 'Network error. Make sure backend is running.';
       setStatus({
         loading: false,
-        message: '❌ Network error. Make sure backend is running.',
+        message: `❌ ${msg}`,
         type: 'error'
       });
     }
